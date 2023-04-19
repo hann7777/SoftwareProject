@@ -1,0 +1,57 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+
+@font-face {
+    src: url('/fonts/Anuphan-VariableFont_wght.ttf');
+}
+
+* {
+    -fx-font-family: "Anuphan";
+}
+
+.root {
+    -fx-background-color: white;
+    -fx-text-base-color: black;
+    -fx-font-family: 'Anuphan', sans-serif;
+    
+}
+
+.text-field {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: black;
+    -fx-border-width: 2;
+    -fx-prompt-text-fill: #999;
+    -fx-text-inner-color: black;
+}
+
+.list-view {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: black;
+    -fx-border-width: 2;
+    -fx-text-fill: black;
+}
+
+.date-picker {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: black;
+    -fx-border-width: 2;
+    -fx-text-fill: black;
+}
+
+.button {
+    -fx-background-color: black;
+    -fx-background-radius: 50;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+    
+}
+
+
+
+
+

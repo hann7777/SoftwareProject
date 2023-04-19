@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.createProjectViewController">
+   <children>
+      <Pane prefHeight="700.0" prefWidth="700.0" styleClass="styles.css" stylesheets="@styles.css">
+         <children>
+            <Label layoutX="299.0" layoutY="98.0" prefHeight="61.0" prefWidth="124.0" text="Project info">
+               <font>
+                  <Font name="Dubai Bold" size="24.0" />
+               </font>
+            </Label>
+            <TextField fx:id="projectName" layoutX="199.0" layoutY="199.0" prefHeight="33.0" prefWidth="324.0" promptText="name" styleClass="styles.css" stylesheets="@styles.css" />
+            <TextField fx:id="projectDescription" layoutX="199.0" layoutY="255.0" prefHeight="33.0" prefWidth="324.0" promptText="description" />
+            <ListView fx:id="listviewOfDevelopers" layoutX="199.0" layoutY="379.0" prefHeight="200.0" prefWidth="324.0" />
+            <Label layoutX="199.0" layoutY="359.0" text="Add Developer">
+               <font>
+                  <Font name="Dubai Bold" size="14.0" />
+               </font></Label>
+            <DatePicker fx:id="startDate" layoutX="197.0" layoutY="314.0" prefHeight="35.0" prefWidth="145.0" promptText="start date" />
+            <DatePicker fx:id="endDate" layoutX="384.0" layoutY="314.0" prefHeight="35.0" prefWidth="139.0" promptText="end date" />
+            <Button layoutX="294.0" layoutY="598.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="112.0" text="Submit" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
