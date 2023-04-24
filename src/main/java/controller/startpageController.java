@@ -22,5 +22,10 @@ public class startpageController {
     void onCreateProject(ActionEvent event) {
     	viewSwitcher.switchTo(View.CREATEPROJECTVIEW);
     }
+    
+    @FXML
+    void onOpenProject(ActionEvent event) {
+    	viewSwitcher.switchTo(View.PROJECTVIEW);
+    }
 
 }

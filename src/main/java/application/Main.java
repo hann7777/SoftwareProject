@@ -23,7 +23,7 @@ public class Main extends Application {
 		stage.setResizable(false);
         stage.show();
   
-    }
+    }	
     
     public static void main(String[] args) {
         launch(args);

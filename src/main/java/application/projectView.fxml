@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.TextFlow?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ProjectViewController">
+   <children>
+      <Pane prefHeight="700.0" prefWidth="700.0" styleClass="styles.css">
+         <children>
+            <Label fx:id="projectName" alignment="CENTER" layoutX="282.0" layoutY="67.0" prefHeight="22.0" prefWidth="136.0" text="Project">
+               <font>
+                  <Font name="Dubai Bold" size="24.0" />
+               </font>
+            </Label>
+            <TextFlow fx:id="description" layoutX="47.0" layoutY="211.0" prefHeight="93.0" prefWidth="606.0" />
+            <Label fx:id="startDate" layoutX="56.0" layoutY="111.0" prefHeight="20.0" prefWidth="98.0" text="start date:">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></Label>
+            <Label fx:id="endDate" layoutX="56.0" layoutY="141.0" prefHeight="17.0" prefWidth="62.0" text="end date:">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></Label>
+            <Label fx:id="projectLeaderLabel" layoutX="56.0" layoutY="176.0" prefHeight="17.0" prefWidth="218.0" text="Project leader: ">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></Label>
+            <ListView fx:id="listOfDevelopersOnProject" layoutX="56.0" layoutY="344.0" prefHeight="203.0" prefWidth="255.0" />
+            <Label layoutX="56.0" layoutY="316.0" prefHeight="17.0" prefWidth="98.0" text="Developers">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></Label>
+            <Button fx:id="AddActivityButton" layoutX="408.0" layoutY="565.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="255.0" text="Add Activity" />
+            <ListView fx:id="listOfActivitiesOnProject" layoutX="408.0" layoutY="340.0" prefHeight="210.0" prefWidth="255.0" />
+            <Label layoutX="408.0" layoutY="316.0" prefHeight="17.0" prefWidth="98.0" text="Activities">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Button fx:id="addDeveloperButton" layoutX="56.0" layoutY="565.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="255.0" text="Add Developer" />
+         </children>
+         <stylesheets>
+            <URL value="@styles.css" />
+         </stylesheets>
+      </Pane>
+   </children>
+</AnchorPane>
