@@ -1,5 +1,8 @@
 package controller;
 
+import application.viewSwitcher;
+import application.viewSwitcher.View;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,7 +15,7 @@ public class ProjectViewController {
     private Button AddActivityButton;
 
     @FXML
-    private Button addDeveloperButton;
+    private Button apply;
 
     @FXML
     private TextFlow description;
@@ -21,10 +24,10 @@ public class ProjectViewController {
     private Label endDate;
 
     @FXML
-    private ListView<?> listOfActivitiesOnProject;
+    private ListView<String> listOfActivitiesOnProject;
 
     @FXML
-    private ListView<?> listOfDevelopersOnProject;
+    private ListView<String> listOfDevelopersOnProject;
 
     @FXML
     private Label projectLeaderLabel;
@@ -34,6 +37,29 @@ public class ProjectViewController {
 
     @FXML
     private Label startDate;
+    
+    @FXML
+    private Button backButton;
+    
+    @FXML
+    void onApply(ActionEvent event) {
+    	
+    		
+    }
+    
+    @FXML
+    void addActivity(ActionEvent event) {
+    	viewSwitcher.switchTo(View.CREATEACTIVITYVIEW);
+
+    }
+    
+    @FXML
+    void back(ActionEvent event) {
+    	viewSwitcher.switchTo(View.STARTPAGE);
+
+
+    }
+    
     
     
 

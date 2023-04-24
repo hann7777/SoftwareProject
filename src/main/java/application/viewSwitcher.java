@@ -18,7 +18,8 @@ public class viewSwitcher {
 		LOGIN("/application/Login.fxml"),
 		STARTPAGE("/application/startpage.fxml"),
 		CREATEPROJECTVIEW("/application/createProjectView.fxml"),
-		PROJECTVIEW("/application/projectView.fxml");
+		PROJECTVIEW("/application/projectView.fxml"),
+		CREATEACTIVITYVIEW("/application/createActivityView.fxml");
 		
 		
 		private String filename;

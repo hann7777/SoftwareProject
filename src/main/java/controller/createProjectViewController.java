@@ -1,7 +1,11 @@
 package controller;
 
+import java.awt.Button;
+
+import application.viewSwitcher;
+import application.viewSwitcher.View;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -12,7 +16,7 @@ public class createProjectViewController {
     private DatePicker endDate;
 
     @FXML
-    private ListView<?> listviewOfDevelopers;
+    private ListView<String> listviewOfDevelopers;
 
     @FXML
     private TextField projectDescription;
@@ -22,5 +26,14 @@ public class createProjectViewController {
 
     @FXML
     private DatePicker startDate;
+    
+    
+    
+    
+    @FXML
+    void back(ActionEvent event) {
+    	viewSwitcher.switchTo(View.STARTPAGE);
+
+    }
 
 }

@@ -19,11 +19,11 @@
                </font>
             </Label>
             <TextFlow fx:id="description" layoutX="47.0" layoutY="211.0" prefHeight="93.0" prefWidth="606.0" />
-            <Label fx:id="startDate" layoutX="56.0" layoutY="111.0" prefHeight="20.0" prefWidth="98.0" text="start date:">
+            <Label fx:id="startDate" layoutX="56.0" layoutY="111.0" prefHeight="20.0" prefWidth="98.0" text="Start date:">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font></Label>
-            <Label fx:id="endDate" layoutX="56.0" layoutY="141.0" prefHeight="17.0" prefWidth="62.0" text="end date:">
+            <Label fx:id="endDate" layoutX="56.0" layoutY="141.0" prefHeight="17.0" prefWidth="62.0" text="End date:">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font></Label>
@@ -36,14 +36,15 @@
                <font>
                   <Font name="System Bold" size="14.0" />
                </font></Label>
-            <Button fx:id="AddActivityButton" layoutX="408.0" layoutY="565.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="255.0" text="Add Activity" />
+            <Button fx:id="AddActivityButton" layoutX="408.0" layoutY="565.0" mnemonicParsing="false" onAction="#addActivity" prefHeight="25.0" prefWidth="255.0" text="Add Activity" />
             <ListView fx:id="listOfActivitiesOnProject" layoutX="408.0" layoutY="340.0" prefHeight="210.0" prefWidth="255.0" />
             <Label layoutX="408.0" layoutY="316.0" prefHeight="17.0" prefWidth="98.0" text="Activities">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Button fx:id="addDeveloperButton" layoutX="56.0" layoutY="565.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="255.0" text="Add Developer" />
+            <Button fx:id="apply" layoutX="56.0" layoutY="565.0" mnemonicParsing="false" onAction="#onApply" prefHeight="25.0" prefWidth="255.0" text="Apply" />
+            <Button fx:id="backButton" layoutX="13.0" layoutY="14.0" mnemonicParsing="false" onAction="#back" prefHeight="25.0" prefWidth="87.0" text="Back" />
          </children>
          <stylesheets>
             <URL value="@styles.css" />

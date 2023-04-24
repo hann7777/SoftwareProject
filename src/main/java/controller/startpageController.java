@@ -27,5 +27,10 @@ public class startpageController {
     void onOpenProject(ActionEvent event) {
     	viewSwitcher.switchTo(View.PROJECTVIEW);
     }
+    
+    @FXML
+    void logout(ActionEvent event) {
+    	viewSwitcher.switchTo(View.LOGIN);
+    }
 
 }
