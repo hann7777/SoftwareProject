@@ -12,7 +12,7 @@ public class User {
 		this.isProjectLeader = isProjectLeader;
 		this.initials = initials;
 		this.name = name;
-		Developers.developers.add(this);
+		Library.developers.add(this);
 	}
 
 	public void createProject() {

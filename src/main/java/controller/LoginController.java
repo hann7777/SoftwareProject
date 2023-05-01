@@ -10,7 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import model.Developers;
+import model.Library;
 import model.User;
 
 public class LoginController implements Initializable {
@@ -32,6 +32,8 @@ public class LoginController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		User abas = new User(false, "abas", "Abas Ali");
+		User saeed = new User(false, "saee", "Saaed Amin");
+
 
 	}
 
@@ -43,7 +45,7 @@ public class LoginController implements Initializable {
 		
 		
 		else  {
-			for(User user : Developers.developers) {
+			for(User user : Library.developers) {
 				if(user.getInitials().equals(initials)) {
 					return true;
 				}

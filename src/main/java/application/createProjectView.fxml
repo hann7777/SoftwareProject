@@ -29,7 +29,7 @@
             <DatePicker fx:id="startDate" layoutX="197.0" layoutY="314.0" prefHeight="35.0" prefWidth="145.0" promptText="start date" />
             <DatePicker fx:id="endDate" layoutX="384.0" layoutY="314.0" prefHeight="35.0" prefWidth="139.0" promptText="end date" />
             <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#back" prefHeight="25.0" prefWidth="87.0" text="Back" />
-            <Button layoutX="294.0" layoutY="598.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="112.0" text="Submit" />
+            <Button layoutX="294.0" layoutY="598.0" mnemonicParsing="false" onAction="#submit" prefHeight="30.0" prefWidth="112.0" text="Submit" />
             
          </children>
       </Pane>

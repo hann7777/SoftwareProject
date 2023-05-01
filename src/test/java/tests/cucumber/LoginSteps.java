@@ -7,14 +7,14 @@ import static org.junit.Assert.*;
 
 import application.viewSwitcher;
 import application.viewSwitcher.View;
-import model.Developers;
+import model.Library;
 import model.User;
 
 public class LoginSteps {
 	
 	@Given("{string} is registred")
 	public void isRegistred(String string) {
-		for(User user : Developers.developers) {
+		for(User user : Library.developers) {
 			assertEquals(user.getInitials(),string);
 		}
 
@@ -32,7 +32,7 @@ public class LoginSteps {
 
 	@Given("{string} is not registred")
 	public void isNotRegistred(String string) {
-		for(User user : Developers.developers) {
+		for(User user : Library.developers) {
 			assertFalse(user.getInitials()!=string);
 		}
 	}
