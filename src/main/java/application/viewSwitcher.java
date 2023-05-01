@@ -20,7 +20,9 @@ public class viewSwitcher {
 		CREATEPROJECTVIEW("/application/createProjectView.fxml"),
 		PROJECTVIEW("/application/projectView.fxml"),
 		CREATEACTIVITYVIEW("/application/createActivityView.fxml"),
-		ACTIVITYVIEW("/application/activityView.fxml");
+		ACTIVITYVIEW("/application/activityView.fxml"),
+		PROJECTLEADERACTIVITYVIEW("/application/projectleaderActivityView.fxml");
+
 
 		
 		

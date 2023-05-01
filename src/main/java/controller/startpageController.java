@@ -82,11 +82,9 @@ public class startpageController implements Initializable {
 	@FXML
 	void logout(ActionEvent event) {
 		for(User user : Library.developers) {
-			if(user.isLoggedIn()) {
 				user.setLoggedIn(false);
 				viewSwitcher.switchTo(View.LOGIN);
 
-			}
 	}
 	}
 

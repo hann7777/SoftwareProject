@@ -6,6 +6,9 @@ public class User {
 	private String initials;
 	private String name;
 	private boolean isLoggedIn = false;
+	private double timeRegistred = 0;
+	
+
 	
 
 	public User(boolean isProjectLeader, String initials, String name) {
@@ -13,7 +16,7 @@ public class User {
 		this.initials = initials;
 		this.name = name;
 		Library.developers.add(this);
-	}
+	} 
 
 	public void createProject() {
 		
@@ -22,8 +25,11 @@ public class User {
 		
 	}
 	
-	public void registerTime() {
-		
+	public void registerTime(double time) {
+		timeRegistred += time;
+	}
+	public double getTimeRegistred() {
+		return timeRegistred;
 	}
 	
 	 

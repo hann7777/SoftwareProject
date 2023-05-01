@@ -61,7 +61,6 @@ public class ProjectViewController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		p = startpageController.selectedProject;
-
 		// initialize the info of the specific project
 		LocalDate sDate = p.getStartDate();
 		LocalDate eDate = p.getEndDate();
@@ -95,11 +94,12 @@ public class ProjectViewController implements Initializable {
 			}
 
 		}
-		
+
 		/*
-		*if the user that is logged in is the projectleader of the project that is clicked on, 
-		*then that user can see all activitties associated with the project
-		*/
+		 * if the user that is logged in is the projectleader of the project that is
+		 * clicked on, then that user can see all activitties associated with the
+		 * project
+		 */
 		for (User user : Library.developers) {
 			if (user.isLoggedIn() && (p.getProjectLeader().equals(user.getName()))) {
 				for (Activity activity : p.getListOfActivities()) {
@@ -141,8 +141,23 @@ public class ProjectViewController implements Initializable {
 
 	@FXML
 	void openActivity(ActionEvent event) {
+		
+
 		if (selectedActivity != null) {
-			viewSwitcher.switchTo(View.ACTIVITYVIEW);
+			//if the user is a projectleader on a project he cant register hours, he can moderate the work
+			for (User user : Library.developers) {
+				
+				if (user.isLoggedIn() && p.getProjectLeader().equals(user.getName())) {
+					viewSwitcher.switchTo(View.PROJECTLEADERACTIVITYVIEW);
+					System.out.println("correct");
+					break;
+				}else {
+					viewSwitcher.switchTo(View.ACTIVITYVIEW);
+					System.out.println("wrong");
+					break;
+
+				}
+			}
 
 		}
 	}
