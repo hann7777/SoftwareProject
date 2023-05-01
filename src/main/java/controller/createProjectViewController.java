@@ -2,6 +2,7 @@ package controller;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import application.viewSwitcher;
@@ -39,8 +40,10 @@ public class createProjectViewController implements Initializable {
 	private DatePicker startDate;
 
 	private boolean isElementsAdded = false;
-	
+
 	private Project project;
+
+	private ArrayList<User> userToBeAdded = new ArrayList<User>();
 
 	@FXML
 	void back(ActionEvent event) {
@@ -53,24 +56,22 @@ public class createProjectViewController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		LocalDate date = LocalDate.of(2022, 1, 1);
 
-		new Project("fsdf",date, date, "nofnsonfosnf" );
-		new Project("fssfsfsfsdsdf",date, date, "nofadadnf" );
-		
+		// adding all developer to the listview once the first time the createProjectView is displayed
 		if (!isElementsAdded) {
-			// adding all developer to the listview once
-			for (User user : Library.developers) {
-				listviewOfDevelopers.getItems().add(user.getInitials());
+			if (listviewOfDevelopers.getItems().isEmpty()) {
+				for (User user : Library.developers) {
+					if (!(user.isLoggedIn() && user.isProjectLeader())) {
+						listviewOfDevelopers.getItems().add(user.getInitials());
+					}
+				}
 			}
 			isElementsAdded = true;
 
 		}
-		LocalDate sDate = startDate.getValue();
-		LocalDate eDate = endDate.getValue();
-		project = new Project(projectName.getText(), sDate, eDate, projectDescription.getText());
-	
-		listviewOfDevelopers.setCellFactory(CheckBoxListCell.forListView(new Callback<String, ObservableValue<Boolean>>() {
+
+		listviewOfDevelopers
+				.setCellFactory(CheckBoxListCell.forListView(new Callback<String, ObservableValue<Boolean>>() {
 					@Override
 					public ObservableValue<Boolean> call(String item) {
 						BooleanProperty observable = new SimpleBooleanProperty();
@@ -79,7 +80,7 @@ public class createProjectViewController implements Initializable {
 								// add the user to the project
 								for (User user : Library.developers) {
 									if (user.getInitials().equals(item)) {
-										project.addDeveloper(user);
+										userToBeAdded.add(user);
 										break;
 									}
 								}
@@ -87,7 +88,7 @@ public class createProjectViewController implements Initializable {
 								// remove the User from the project
 								for (User user : Library.developers) {
 									if (user.getInitials().equals(item)) {
-										project.removeDeveloper(user);
+										userToBeAdded.remove(user);
 										break;
 									}
 								}
@@ -100,17 +101,24 @@ public class createProjectViewController implements Initializable {
 
 	@FXML
 	void submit(ActionEvent event) {
-		 if (projectName.getText().isEmpty() || startDate.getValue() == null || endDate.getValue() == null) {
-		        return;
-		    }
+		if (projectName.getText().isEmpty() || startDate.getValue() == null || endDate.getValue() == null) {
+			return;
+		}
 		LocalDate sDate = startDate.getValue();
 		LocalDate eDate = endDate.getValue();
-		project.setName(projectName.getText());
-		project.setDescription(projectDescription.getText());
-		project.setStartDate(sDate);
-		project.setEndDate(eDate);
-		viewSwitcher.switchTo(View.PROJECTVIEW);
+		// checking that the start and end date is valid
+		if (eDate.compareTo(sDate) < 0 || eDate.compareTo(sDate) == 0 || sDate.isBefore(LocalDate.now())) {
+			return;
+		} else {
 
+			project = new Project(projectName.getText(), sDate, eDate, projectDescription.getText());
+
+			for (User user : userToBeAdded) {
+				project.addDeveloper(user);
+			}
+
+			viewSwitcher.switchTo(View.STARTPAGE);
+		}
 	}
 
 }

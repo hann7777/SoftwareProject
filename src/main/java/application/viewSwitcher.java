@@ -19,7 +19,9 @@ public class viewSwitcher {
 		STARTPAGE("/application/startpage.fxml"),
 		CREATEPROJECTVIEW("/application/createProjectView.fxml"),
 		PROJECTVIEW("/application/projectView.fxml"),
-		CREATEACTIVITYVIEW("/application/createActivityView.fxml");
+		CREATEACTIVITYVIEW("/application/createActivityView.fxml"),
+		ACTIVITYVIEW("/application/activityView.fxml");
+
 		
 		
 		private String filename;

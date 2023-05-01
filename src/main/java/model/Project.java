@@ -9,13 +9,23 @@ public class Project {
 	private String id;
 	private LocalDate startDate;
 	private LocalDate endDate;
-	public static ArrayList<Activity> listOfActivities;
-	public static ArrayList<User> listOfDevelopers;
+	private ArrayList<Activity> listOfActivities;
+	private ArrayList<User> listOfDevelopers;
 	private String description;
 	private int counter = 000;
+	private String projectLeader;
+
 
 	public Project(String name, LocalDate startDate, LocalDate endDate, String description) {
 		super();
+		
+		for(User user : Library.developers) {
+			if(user.isLoggedIn()) {
+				if(user.isProjectLeader()) {
+					projectLeader = user.getName();
+				}
+			}
+		}
 		this.name = name;
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -79,6 +89,36 @@ public class Project {
 
 	public void removeDeveloper(User user) {
 		listOfDevelopers.remove(user);
+	}
+	
+	public void addActivity(Activity activity) {
+		listOfActivities.add(activity);
+	}
+
+	public void removoeActivity(Activity activity) {
+		listOfActivities.remove(activity);
+	}
+	public String getProjectLeader() {
+		return projectLeader;
+	}
+
+	public void setProjectLeader(String projectLeader) {
+		this.projectLeader = projectLeader;
+	}
+	public ArrayList<Activity> getListOfActivities() {
+		return listOfActivities;
+	}
+
+	public void setListOfActivities(ArrayList<Activity> listOfActivities) {
+		this.listOfActivities = listOfActivities;
+	}
+
+	public ArrayList<User> getListOfDevelopers() {
+		return listOfDevelopers;
+	}
+
+	public void setListOfDevelopers(ArrayList<User> listOfDevelopers) {
+		this.listOfDevelopers = listOfDevelopers;
 	}
 
 }

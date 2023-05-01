@@ -13,7 +13,7 @@ import javafx.scene.control.TextField;
 import model.Library;
 import model.User;
 
-public class LoginController implements Initializable {
+public class LoginController {
 
 	@FXML
 	private TextField logInField;
@@ -29,29 +29,19 @@ public class LoginController implements Initializable {
 		}
 	}
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		User abas = new User(false, "abas", "Abas Ali");
-		User saeed = new User(false, "saee", "Saaed Amin");
-
-
-	}
-
 	public boolean checkInitials(String initials) {
 		if (initials.length() > 4) {
 			return false;
-		} 
-		
-		
-		
-		else  {
-			for(User user : Library.developers) {
-				if(user.getInitials().equals(initials)) {
+		}
+
+		else {
+			for (User user : Library.developers) {
+				if (user.getInitials().equals(initials)) {
+					user.setLoggedIn(true);
 					return true;
 				}
-				
+
 			}
-			
 
 		}
 

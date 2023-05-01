@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import model.User;
 
 
 public class Main extends Application {
@@ -22,6 +23,12 @@ public class Main extends Application {
 		stage.setScene(scene);
 		stage.setResizable(false);
         stage.show();
+        
+        
+        User abas = new User(true, "abas", "Abas Ali");
+    	User saeed = new User(true, "saee", "Saaed Amin");
+        User jon = new User(false, "jon", "jon");
+
   
     }	
     

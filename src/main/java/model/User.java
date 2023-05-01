@@ -5,8 +5,8 @@ public class User {
 	private boolean isProjectLeader = false;
 	private String initials;
 	private String name;
+	private boolean isLoggedIn = false;
 	
-
 
 	public User(boolean isProjectLeader, String initials, String name) {
 		this.isProjectLeader = isProjectLeader;
@@ -26,7 +26,7 @@ public class User {
 		
 	}
 	
-	
+	 
 	public boolean isProjectLeader() {
 		return isProjectLeader;
 	}
@@ -49,6 +49,14 @@ public class User {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public boolean isLoggedIn() {
+		return isLoggedIn;
+	}
+
+	public void setLoggedIn(boolean isLoggedIn) {
+		this.isLoggedIn = isLoggedIn;
 	}
 
 }

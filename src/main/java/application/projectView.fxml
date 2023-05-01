@@ -18,7 +18,7 @@
                   <Font name="Dubai Bold" size="24.0" />
                </font>
             </Label>
-            <TextFlow fx:id="description" layoutX="58.0" layoutY="211.0" prefHeight="93.0" prefWidth="595.0" />
+            <TextFlow fx:id="description" layoutX="56.0" layoutY="237.0" prefHeight="59.0" prefWidth="595.0" />
             <Label fx:id="startDate" layoutX="56.0" layoutY="111.0" prefHeight="20.0" prefWidth="595.0" text="Start date:">
                <font>
                   <Font name="System Bold" size="14.0" />
@@ -36,7 +36,7 @@
                <font>
                   <Font name="System Bold" size="14.0" />
                </font></Label>
-            <Button fx:id="AddActivityButton" layoutX="408.0" layoutY="565.0" mnemonicParsing="false" onAction="#addActivity" prefHeight="25.0" prefWidth="255.0" text="Add Activity" />
+            <Button fx:id="AddActivityButton" layoutX="409.0" layoutY="602.0" mnemonicParsing="false" onAction="#addActivity" prefHeight="25.0" prefWidth="255.0" text="Add Activity" />
             <ListView fx:id="listOfActivitiesOnProject" layoutX="408.0" layoutY="340.0" prefHeight="210.0" prefWidth="255.0" />
             <Label layoutX="408.0" layoutY="316.0" prefHeight="17.0" prefWidth="98.0" text="Activities">
                <font>
@@ -45,6 +45,12 @@
             </Label>
             <Button fx:id="apply" layoutX="56.0" layoutY="565.0" mnemonicParsing="false" onAction="#onApply" prefHeight="25.0" prefWidth="255.0" text="Apply" />
             <Button fx:id="backButton" layoutX="13.0" layoutY="14.0" mnemonicParsing="false" onAction="#back" prefHeight="25.0" prefWidth="87.0" text="Back" />
+            <Label layoutX="56.0" layoutY="209.0" prefHeight="20.0" prefWidth="255.0" text="Description:">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Button layoutX="408.0" layoutY="565.0" mnemonicParsing="false" onAction="#openActivity" prefHeight="25.0" prefWidth="255.0" text="Open Activity" />
          </children>
          <stylesheets>
             <URL value="@styles.css" />
