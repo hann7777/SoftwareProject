@@ -2,6 +2,8 @@ package controller;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import application.viewSwitcher;
@@ -17,93 +19,103 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.util.Callback;
 import model.Activity;
-import model.Library;
 import model.Project;
 import model.User;
 
-public class projectleaderActivityViewController implements Initializable{
+public class projectleaderActivityViewController implements Initializable {
 
-    @FXML
-    private Label activityName;
+	@FXML
+	private Label activityName;
 
-    @FXML
-    private Label estimatedTime;
+	@FXML
+	private Label estimatedTime;
 
-    @FXML
-    private ListView<String> listOfDevelopers;
+	@FXML
+	private ListView<String> listOfDevelopers;
 
-    @FXML
-    private Label timeUnaccountedFor;
+	@FXML
+	private Label timeUnaccountedFor;
 
-    
-    private Activity a;
-    
-    private Project p;
-    
-    private ArrayList<User> userToBeAdded = new  ArrayList<User>();
-    
-    @Override
+	private Activity a;
+
+	private Project p;
+
+	private ArrayList<User> userToBeAdded = new ArrayList<User>();
+
+	private Map<String, BooleanProperty> checkboxState = new HashMap<>();
+
+	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-        p = startpageController.selectedProject;
-        a = ProjectViewController.selectedActivity;
-        
-        // add the users to the listview
-        for(User user :  p.getListOfDevelopers()) {
-        	listOfDevelopers.getItems().add(user.getInitials());
-        }
-        
+		p = startpageController.selectedProject;
+		a = ProjectViewController.selectedActivity;
 
-        // display the specific activity info
-        activityName.setText(a.getName());
-        estimatedTime.setText("Estimated time: " + a.getEstimatedTime());
-        // display the unaccounted time
-        timeUnaccountedFor.setText("Time Unaccounted for: " + activityViewController.remaining);
-        
-        
-        listOfDevelopers
-		.setCellFactory(CheckBoxListCell.forListView(new Callback<String, ObservableValue<Boolean>>() {
+		// add the users to the listview
+		for (User user : p.getListOfDevelopers()) {
+			listOfDevelopers.getItems().add(user.getInitials());
+		}
+
+		// display the specific activity info
+		activityName.setText(a.getName());
+		estimatedTime.setText("Estimated time: " + a.getEstimatedTime());
+		// display the unaccounted time
+		timeUnaccountedFor.setText("Time Unaccounted for: " + activityViewController.remaining);
+
+		listOfDevelopers.setCellFactory(CheckBoxListCell.forListView(new Callback<String, ObservableValue<Boolean>>() {
 			@Override
 			public ObservableValue<Boolean> call(String item) {
-				BooleanProperty observable = new SimpleBooleanProperty();
+				BooleanProperty observable = checkboxState.get(item);
+				if (observable == null) {
+					observable = new SimpleBooleanProperty();
+					checkboxState.put(item, observable);
+				}
 				observable.addListener((obs, wasSelected, isNowSelected) -> {
 					if (isNowSelected) {
-						// add the user to the project
-						for (User user : Library.developers) {
+						// add the users to the activity listview and the activities list of developers
+						for (User user : p.getListOfDevelopers()) {
 							if (user.getInitials().equals(item)) {
 								userToBeAdded.add(user);
-								break;
+								continue;
 							}
 						}
 					} else {
-						// remove the User from the project
-						for (User user : Library.developers) {
+						// remove the users from the activity listview and the activities list of
+						// developers
+						for (User user : p.getListOfDevelopers()) {
 							if (user.getInitials().equals(item)) {
 								userToBeAdded.remove(user);
-								break;
+								continue;
 							}
 						}
 					}
 				});
+
+				// Set initial checkbox state to true, if the user is already on the activity
+				boolean isChecked = false;
+				for (User user : a.getListOfDevelopers()) {
+					if (user.getInitials().equals(item)) {
+						isChecked = true;
+						break;
+					}
+				}
+				observable.set(isChecked);
+
 				return observable;
 			}
 		}));
 	}
-    @FXML
-    void back(ActionEvent event) {
-    	viewSwitcher.switchTo(View.PROJECTVIEW);
 
-    }
-    
-    @FXML
-    void submit(ActionEvent event) {
-    	
-    	for(User user : userToBeAdded) {
-    		a.addDeveloper(user);
-    	}
-    	
-    	
-    	viewSwitcher.switchTo(View.PROJECTVIEW);
-    }
-	
+	@FXML
+	void back(ActionEvent event) {
+		viewSwitcher.switchTo(View.PROJECTVIEW);
+
+	}
+
+	@FXML
+	void submit(ActionEvent event) {
+
+		a.setListOfDevelopers(userToBeAdded);
+
+		viewSwitcher.switchTo(View.PROJECTVIEW);
+	}
 
 }

@@ -16,72 +16,75 @@ import model.User;
 
 public class activityViewController implements Initializable {
 
-    @FXML
-    private Label activityName;
+	@FXML
+	private Label activityName;
 
-    @FXML
-    private Label estimatedTime;
+	@FXML
+	private Label estimatedTime;
 
-    @FXML
-    private TextField timeRegistered;
+	@FXML
+	private TextField timeRegistered;
 
-    @FXML
-    private Label timeUnaccountedFor;
+	@FXML
+	private Label timeUnaccountedFor;
 
-    private static Activity a;
+	private static Activity a;
 
-    private Project p;
+	private Project p;
 
-    public static double remaining = 0;
+	public static double remaining = 0;
 
-    private double timeInput;
+	private double timeInput;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        p = startpageController.selectedProject;
-        a = ProjectViewController.selectedActivity;
-        
-        if (remaining == 0) {
-            remaining = a.getEstimatedTime();
-        }
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		p = startpageController.selectedProject;
+		a = ProjectViewController.selectedActivity;
 
-        // display the specific activity info
-        activityName.setText(a.getName());
-        estimatedTime.setText("Estimated time: " + a.getEstimatedTime());
+		if (remaining == 0) {
+			remaining = a.getEstimatedTime();
+		}
 
-        // display the unaccounted time
-        timeUnaccountedFor.setText("Time Unaccounted for: " + remaining);
-        
-        
-    }
+		// display the specific activity info
+		activityName.setText(a.getName());
+		estimatedTime.setText("Estimated time: " + a.getEstimatedTime());
 
-    @FXML
-    void back(ActionEvent event) {
-        viewSwitcher.switchTo(View.PROJECTVIEW);
-    }
+		// display the unaccounted time
+		timeUnaccountedFor.setText("Time Unaccounted for: " + remaining);
 
-    @FXML
-    void submit(ActionEvent event) {
-        // calculating the remaining time that is unaccounted for
-        try {
-            timeInput = Double.parseDouble(timeRegistered.getText());
-            if (timeInput < 0) {
-                return;
-            }
-        } catch (Exception e) {
-            return;
-        }
+	}
 
-        remaining -= timeInput;
+	@FXML
+	void back(ActionEvent event) {
+		viewSwitcher.switchTo(View.PROJECTVIEW);
+	}
 
-        // add the registered time to the user
-        for (User user : a.getListOfDevelopers()) {
-            if (user.isLoggedIn()) {
-                user.registerTime(timeInput);
-            }
-        }
+	@FXML
+	void submit(ActionEvent event) {
+		// calculating the remaining time that is unaccounted for
+		try {
+			timeInput = Double.parseDouble(timeRegistered.getText());
+			if (timeInput < 0) {
+				return;
+			}
+		} catch (Exception e) {
+			return;
+		}
+		if (remaining <= 0) {
+			return;
+		}
+		if (timeInput <= a.getEstimatedTime()) {
+			remaining -= timeInput;
+		}
 
-        viewSwitcher.switchTo(View.PROJECTVIEW);
-    }
+		// add the registered time to the users memory
+		for (User user : a.getListOfDevelopers()) {
+			if (user.isLoggedIn()) {
+				user.registerTime(timeInput);
+			}
+		}
+
+		viewSwitcher.switchTo(View.PROJECTVIEW);
+	}
 
 }

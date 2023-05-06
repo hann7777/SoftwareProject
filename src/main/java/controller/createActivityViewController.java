@@ -25,38 +25,39 @@ import model.User;
 
 public class createActivityViewController implements Initializable {
 
-    @FXML
-    private TextField activityName;
+	@FXML
+	private TextField activityName;
 
-    @FXML
-    private TextField estimatedTime;
+	@FXML
+	private TextField estimatedTime;
 
-    @FXML
-    private ListView<String> listViewOfDeveloperToBeAdded;
+	@FXML
+	private ListView<String> listViewOfDeveloperToBeAdded;
 
-    @FXML
-    private Button submitButton;
-    
-    @FXML
-    private Button backButton;
-    
+	@FXML
+	private Button submitButton;
+
+	@FXML
+	private Button backButton;
+
 	private boolean isElementsAdded = false;
-	
+
 	private Activity activity;
-	
+
 	private Project p;
-	
+
 	private ArrayList<User> userToBeAdded = new ArrayList<User>();
 
-
-    
-    @Override
+	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-    	
-    	// extracting the selected project from the startpage
-    	p = startpageController.selectedProject;
-    	
-		// adding all developer to the listview once the first time the createActivityView scene is displayed
+
+		// extracting the selected project from the startpage
+		p = startpageController.selectedProject;
+
+		/*
+		 * adding all developer to the listview once the first time the
+		 * createActivityView scene is displayed
+		 */
 		if (!isElementsAdded) {
 			if (listViewOfDeveloperToBeAdded.getItems().isEmpty()) {
 				for (User user : p.getListOfDevelopers()) {
@@ -68,65 +69,63 @@ public class createActivityViewController implements Initializable {
 			isElementsAdded = true;
 
 		}
-		 
-		listViewOfDeveloperToBeAdded.setCellFactory(CheckBoxListCell.forListView(new Callback<String, ObservableValue<Boolean>>() {
-			@Override
-			public ObservableValue<Boolean> call(String item) {
-				BooleanProperty observable = new SimpleBooleanProperty();
-				observable.addListener((obs, wasSelected, isNowSelected) -> {
-					if (isNowSelected) {
-						// add the user to the project
-						for (User user : Library.developers) {
-							if (user.getInitials().equals(item)) {
-								userToBeAdded.add(user);
-								break;
+
+		listViewOfDeveloperToBeAdded
+				.setCellFactory(CheckBoxListCell.forListView(new Callback<String, ObservableValue<Boolean>>() {
+					@Override
+					public ObservableValue<Boolean> call(String item) {
+						BooleanProperty observable = new SimpleBooleanProperty();
+						observable.addListener((obs, wasSelected, isNowSelected) -> {
+							if (isNowSelected) {
+								// add the user to the project
+								for (User user : Library.developers) {
+									if (user.getInitials().equals(item)) {
+										userToBeAdded.add(user);
+										break;
+									}
+								}
+							} else {
+								// remove the User from the project
+								for (User user : Library.developers) {
+									if (user.getInitials().equals(item)) {
+										userToBeAdded.remove(user);
+										break;
+									}
+								}
 							}
-						}
-					} else {
-						// remove the User from the project
-						for (User user : Library.developers) {
-							if (user.getInitials().equals(item)) {
-								userToBeAdded.remove(user);
-								break;
-							}
-						}
+						});
+						return observable;
 					}
-				});
-				return observable;
-			}
-		}));
+				}));
 	}
 
-    @FXML
-    void onSubmit(ActionEvent event) {
-    	
-    	if (activityName.getText().isEmpty() || estimatedTime.getText() == null ) {
+	@FXML
+	void onSubmit(ActionEvent event) {
+
+		if (activityName.getText().isEmpty() || estimatedTime.getText() == null) {
 
 			return;
-    	}
-    	// convert from a string to a double
-    	double estimatedTimeConverted = Double.parseDouble(estimatedTime.getText());
+		}
+		
+		// convert from a string to a double
+		double estimatedTimeConverted = Double.parseDouble(estimatedTime.getText());
 
-			activity = new Activity(activityName.getText(),estimatedTimeConverted);
+		activity = new Activity(activityName.getText(), estimatedTimeConverted);
 
-			// add the developers to the activity
-			for (User user : userToBeAdded) {
-				activity.addDeveloper(user);
-			}
-			
-			p.addActivity(activity);
-			viewSwitcher.switchTo(View.PROJECTVIEW);
-		} 
+		// add the developers to the activity
+		for (User user : userToBeAdded) {
+			activity.addDeveloper(user);
+		}
 
-    
-    
-    @FXML
-    void back(ActionEvent event) {
-    	viewSwitcher.switchTo(View.PROJECTVIEW);
+		// add the activity to the project it was created under
+		p.addActivity(activity);
 
-    }
-   
+		viewSwitcher.switchTo(View.PROJECTVIEW);
+	}
 
-	
+	@FXML
+	void back(ActionEvent event) {
+		viewSwitcher.switchTo(View.PROJECTVIEW);
+	}
 
 }

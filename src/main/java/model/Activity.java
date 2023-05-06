@@ -6,13 +6,12 @@ public class Activity {
 	private String name;
 	private double estimatedTime;
 	private boolean isCompleted;
-	private ArrayList<User> listOfDevelopers;
+	private ArrayList<User> listOfDevelopers= new ArrayList<User>();
 
 	public Activity(String name, double estimatedTime) {
 		super();
 		this.name = name;
 		this.estimatedTime = estimatedTime;
-		listOfDevelopers = new ArrayList<User>();
 
 	}
 
