@@ -110,122 +110,108 @@ public class ProjectViewController implements Initializable {
 			}
 
 		}
-	for(User u : Library.developers) {
-	  if (u.isLoggedIn() && p.getProjectLeader().equals(u.getName())) {
-		listOfDevelopersOnProject.setCellFactory(CheckBoxListCell.forListView(item -> {
-		    BooleanProperty observable = null;
-		   
-		            observable = new SimpleBooleanProperty();
-		            observable.addListener((obs, wasSelected, isNowSelected) -> {
-		                if (isNowSelected) {
-		                    // add the developers that have been checked to the project
-		                    for (User user : p.getListOfDevelopers()) {
-		                        if (user.getInitials().equals(item)) {
-		                            userToBeAdded.add(user);
-		                            break;
-		                        }
-		                    }
-		                } else {
-		                    // remove the developers that have been unchecked
-		                    for (User user : p.getListOfDevelopers()) {
-		                        if (user.getInitials().equals(item)) {
-		                            userToBeAdded.remove(user);
-		                            break;
-		                        }
-		                    }
-		                }
-		            });
-		            // Set initial checkbox state to true, if the user is already on the project
-		            boolean isChecked = false;
-		            for (User user : p.getListOfDevelopers()) {
-		                if (user.getInitials().equals(item)) {
-		                    isChecked = true;
-		                    break;
-		                }
-		            }
-		            observable.set(isChecked);
-		            break;
-		        
-		    
-		    return observable;
-	  
-		}));
+		for (User u : Library.developers) {
+			if (u.isLoggedIn() && p.getProjectLeader().equals(u.getName())) {
+				listOfDevelopersOnProject.setCellFactory(CheckBoxListCell.forListView(item -> {
+					BooleanProperty observable = null;
 
-	  }else{
-		listOfDevelopersOnProject.setCellFactory(TextFieldListCell.forListView());
+					observable = new SimpleBooleanProperty();
+					observable.addListener((obs, wasSelected, isNowSelected) -> {
+						if (isNowSelected) {
+							// add the developers that have been checked to the project
+							for (User user : p.getListOfDevelopers()) {
+								if (user.getInitials().equals(item)) {
+									userToBeAdded.add(user);
+									break;
+								}
+							}
+						} else {
+							// remove the developers that have been unchecked
+							for (User user : p.getListOfDevelopers()) {
+								if (user.getInitials().equals(item)) {
+									userToBeAdded.remove(user);
+									break;
+								}
+							}
+						}
+					});
+					// Set initial checkbox state to true, if the user is already on the project
+					boolean isChecked = false;
+					for (User user : p.getListOfDevelopers()) {
+						if (user.getInitials().equals(item)) {
+							isChecked = true;
+							break;
+						}
+					}
+					observable.set(isChecked);
+
+					return observable;
+
+				}));
+
+			} else {
+			}
 		}
-	}
-	
-	
 
-	/*
-	 * Code regarding the acitivity listview and buttons
-	 */
+		/*
+		 * Code regarding the acitivity listview and buttons
+		 */
 
-	// add the activities that the specific user is on to the listview
-	listOfActivitiesOnProject.getItems().clear();
+		// add the activities that the specific user is on to the listview
+		listOfActivitiesOnProject.getItems().clear();
 
-	for(
+		for (
 
-	Activity activity:p.getListOfActivities())
-	{
-		for (User user : activity.getListOfDevelopers()) {
-			if (user.isLoggedIn()) {
-				if (listOfActivitiesOnProject.getItems().isEmpty()) {
+		Activity activity : p.getListOfActivities()) {
+			for (User user : activity.getListOfDevelopers()) {
+				if (user.isLoggedIn()) {
+					if (listOfActivitiesOnProject.getItems().isEmpty()) {
+						listOfActivitiesOnProject.getItems().add(activity.getName());
+
+					}
+				}
+
+			}
+		}
+
+		/*
+		 * if the user that is logged in is the projectleader of the project that is
+		 * clicked on, then that user can see all activitties associated with the
+		 * project
+		 */
+		for (User user : Library.developers) {
+			if (user.isLoggedIn() && (p.getProjectLeader().equals(user.getName()))) {
+				for (Activity activity : p.getListOfActivities()) {
 					listOfActivitiesOnProject.getItems().add(activity.getName());
+				}
+
+			}
+
+		}
+
+		// remove the addActivity button for developers that isnt a project leader on
+		// the specific project
+		for (User user : Library.developers) {
+			if (user.isLoggedIn() && !(p.getProjectLeader().equals(user.getName()))) {
+				AddActivityButton.setDisable(true);
+				AddActivityButton.setOpacity(0);
+
+			}
+		}
+
+		// Open the acitivty that has been clicked
+		listOfActivitiesOnProject.setOnMouseClicked(e -> {
+			for (Activity activity : p.getListOfActivities()) {
+				String selectedItem = listOfActivitiesOnProject.getSelectionModel().getSelectedItem();
+				if (activity.getName().equals(selectedItem)) {
+					selectedActivity = activity;
+					break;
 
 				}
 			}
-
-		}
-	}
-
-	/*
-	 * if the user that is logged in is the projectleader of the project that is
-	 * clicked on, then that user can see all activitties associated with the
-	 * project
-	 */
-	for(
-	User user:Library.developers)
-	{
-		if (user.isLoggedIn() && (p.getProjectLeader().equals(user.getName()))) {
-			for (Activity activity : p.getListOfActivities()) {
-				listOfActivitiesOnProject.getItems().add(activity.getName());
-			}
-
-		}
+		});
 
 	}
-
-	// remove the addActivity button for developers that isnt a project leader on
-	// the specific project
-	for(
-	User user:Library.developers)
-	{
-		if (user.isLoggedIn() && !(p.getProjectLeader().equals(user.getName()))) {
-			AddActivityButton.setDisable(true);
-			AddActivityButton.setOpacity(0);
-
-		}
-	}
-
-	// Open the acitivty that has been clicked
-	listOfActivitiesOnProject.setOnMouseClicked(e->
-	{
-		for (Activity activity : p.getListOfActivities()) {
-			String selectedItem = listOfActivitiesOnProject.getSelectionModel().getSelectedItem();
-			if (activity.getName().equals(selectedItem)) {
-				selectedActivity = activity;
-				break;
-
-			}
-		}
-	});
-	
-
-	}
- 
-
 
 	@FXML
 	void onApply(ActionEvent event) {
