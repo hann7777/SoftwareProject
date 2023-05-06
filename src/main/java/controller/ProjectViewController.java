@@ -160,9 +160,7 @@ public class ProjectViewController implements Initializable {
 		// add the activities that the specific user is on to the listview
 		listOfActivitiesOnProject.getItems().clear();
 
-		for (
-
-		Activity activity : p.getListOfActivities()) {
+		for(Activity activity : p.getListOfActivities()) {
 			for (User user : activity.getListOfDevelopers()) {
 				if (user.isLoggedIn()) {
 					if (listOfActivitiesOnProject.getItems().isEmpty()) {
