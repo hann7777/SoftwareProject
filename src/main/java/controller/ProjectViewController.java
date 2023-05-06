@@ -75,83 +75,98 @@ public class ProjectViewController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		 checkboxState = new HashMap<>();
-		    p = startpageController.selectedProject;
+		checkboxState = new HashMap<>();
+		p = startpageController.selectedProject;
 
-		    // Disable the apply button for non-project leader
-		    for (User user : Library.developers) {
-		        if (user.isLoggedIn() && !p.getProjectLeader().equals(user.getName())) {
-		            apply.setDisable(true);
-		            apply.setOpacity(0);
-		        }
-		    }
+		// Disable the apply button for non-project leader
+		for (User user : Library.developers) {
+			if (user.isLoggedIn() && !p.getProjectLeader().equals(user.getName())) {
+				apply.setDisable(true);
+				apply.setOpacity(0);
+			}
+		}
 
-		    // Initialize the info of the specific project
-		    LocalDate sDate = p.getStartDate();
-		    LocalDate eDate = p.getEndDate();
-		    sDateFormatted = sDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-		    eDateFormatted = eDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-		    text = new Text(p.getDescription());
+		// Initialize the info of the specific project
+		LocalDate sDate = p.getStartDate();
+		LocalDate eDate = p.getEndDate();
+		sDateFormatted = sDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+		eDateFormatted = eDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+		text = new Text(p.getDescription());
 
-		    // Display the specific project's info
-		    projectName.setText(p.getName());
-		    startDate.setText("Project started: " + sDateFormatted);
-		    endDate.setText("Project ends: " + eDateFormatted);
-		    description.getChildren().add(text);
-		    projectLeaderLabel.setText("Project leader: " + p.getProjectLeader());
+		// Display the specific project's info
+		projectName.setText(p.getName());
+		startDate.setText("Project started: " + sDateFormatted);
+		endDate.setText("Project ends: " + eDateFormatted);
+		description.getChildren().add(text);
+		projectLeaderLabel.setText("Project leader: " + p.getProjectLeader());
 
-		    // Add all developers to the ListView of developers
-		    for (User user : Library.developers) {
-		        if (!p.getProjectLeader().equals(user.getName())) {
-		            listOfDevelopersOnProject.getItems().add(user.getInitials());
-		        }
-		    }
+		// Add all developers to the ListView of developers
+		for (User user : Library.developers) {
+				if(user.isLoggedIn() && p.getProjectLeader().equals(user.getName())) {
+					for (User u : Library.developers) {
+						listOfDevelopersOnProject.getItems().add(u.getInitials());
+						listOfDevelopersOnProject.getItems().remove(user.getInitials());
+				}
+				
+		}
+		}
+		// Add all developers to the ListView of developers
+		for (User user : Library.developers) {
+				if(user.isLoggedIn() && !(p.getProjectLeader().equals(user.getName()))) {
+					for (User u : p.getListOfDevelopers()) {
+						listOfDevelopersOnProject.getItems().add(u.getInitials());
+				}
+				
+		}
+		}
+		
+		
 
-		    for (User u : Library.developers) {
-		        if (u.isLoggedIn() && p.getProjectLeader().equals(u.getName())) {
-		            listOfDevelopersOnProject.setCellFactory(CheckBoxListCell.forListView(item -> {
-		                BooleanProperty observable = new SimpleBooleanProperty();
-		                observable.addListener((obs, wasSelected, isNowSelected) -> {
-		                    checkboxState.put(item, new SimpleBooleanProperty(isNowSelected));
-		                    if (isNowSelected) {
-		                        // Add the developers that have been checked to the project
-		                        for (User user : p.getListOfDevelopers()) {
-		                            if (user.getInitials().equals(item)) {
-		                                userToBeAdded.add(user);
-		                                break;
-		                            }
-		                        }
-		                    } else {
-		                        // Remove the developers that have been unchecked
-		                        for (User user : p.getListOfDevelopers()) {
-		                            if (user.getInitials().equals(item)) {
-		                                userToBeAdded.remove(user);
-		                                break;
-		                            }
-		                        }
-		                    }
-		                });
+		for (User u : Library.developers) {
+			if (u.isLoggedIn() && p.getProjectLeader().equals(u.getName())) {
+				listOfDevelopersOnProject.setCellFactory(CheckBoxListCell.forListView(item -> {
+					BooleanProperty observable = new SimpleBooleanProperty();
+					observable.addListener((obs, wasSelected, isNowSelected) -> {
+						checkboxState.put(item, new SimpleBooleanProperty(isNowSelected));
+						if (isNowSelected) {
+							// Add the developers that have been checked to the project
+							for (User user : p.getListOfDevelopers()) {
+								if (user.getInitials().equals(item)) {
+									userToBeAdded.add(user);
+									break;
+								}
+							}
+						} else {
+							// Remove the developers that have been unchecked
+							for (User user : p.getListOfDevelopers()) {
+								if (user.getInitials().equals(item)) {
+									userToBeAdded.remove(user);
+									break;
+								}
+							}
+						}
+					});
 
-		                // Set initial checkbox state to true if the user is already on the project
-		                boolean isChecked = false;
-		                for (User user : p.getListOfDevelopers()) {
-		                    if (user.getInitials().equals(item)) {
-		                        isChecked = true;
-		                        break;
-		                    }
-		                }
-		                observable.set(isChecked);
+					// Set initial checkbox state to true if the user is already on the project
+					boolean isChecked = false;
+					for (User user : p.getListOfDevelopers()) {
+						if (user.getInitials().equals(item)) {
+							isChecked = true;
+							break;
+						}
+					}
+					observable.set(isChecked);
 
-		                // Disable the checkbox if the user has been removed from the project
-		                if (!isChecked && userToBeAdded.contains(u)) {
-		                    observable.set(false);
-		                    observable.unbind();
-		                }
+					// Disable the checkbox if the user has been removed from the project
+					if (!isChecked && userToBeAdded.contains(u)) {
+						observable.set(false);
+						observable.unbind();
+					}
 
-		                return observable;
-		            }));
-		        }
-		    }
+					return observable;
+				}));
+			}
+		}
 
 		// Set initial checkbox state based on the project's developers
 		for (String initials : listOfDevelopersOnProject.getItems()) {
@@ -200,44 +215,35 @@ public class ProjectViewController implements Initializable {
 
 		// Open the activity that has been clicked
 		listOfActivitiesOnProject.setOnMouseClicked(e -> {
-			String selectedItem = listOfActivitiesOnProject.getSelectionModel().getSelectedItem();
-			selectedActivity = getActivityByName(selectedItem);
-			if (selectedActivity != null) {
-				// If the user is a project leader on a project, they can't register hours. They
-				// can moderate the work.
-				for (User user : Library.developers) {
-					if (user.isLoggedIn() && p.getProjectLeader().equals(user.getName())) {
-						viewSwitcher.switchTo(View.PROJECTLEADERACTIVITYVIEW);
-						return;
-					} else {
-						viewSwitcher.switchTo(View.ACTIVITYVIEW);
-						return;
-					}
-				}
-			}
+		    for (Activity activity : p.getListOfActivities()) {
+		        String selectedItem = listOfActivitiesOnProject.getSelectionModel().getSelectedItem();
+		        if (selectedItem != null && activity.getName().equals(selectedItem)) {
+		            selectedActivity = activity;
+		        	break;
+		        }
+		    }
 		});
+		
 	}
 
 	@FXML
 	void onApply(ActionEvent event) {
-	    // Clear the list of developers in the project
-	    p.getListOfDevelopers().clear();
+		// Clear the list of developers in the project
+		p.getListOfDevelopers().clear();
 
-	    // Add the selected developers to the project's list of developers
-	    for (String item : listOfDevelopersOnProject.getItems()) {
-	        BooleanProperty state = checkboxState.get(item);
-	        if (state != null && state.get()) {
-	            for (User user : Library.developers) {
-	                if (user.getInitials().equals(item)) {
-	                    p.getListOfDevelopers().add(user);
-	                    break;
-	                }
-	            }
-	        }
-	    }
+		// Add the selected developers to the project's list of developers
+		for (String item : listOfDevelopersOnProject.getItems()) {
+			BooleanProperty state = checkboxState.get(item);
+			if (state != null && state.get()) {
+				for (User user : Library.developers) {
+					if (user.getInitials().equals(item)) {
+						p.getListOfDevelopers().add(user);
+						break;
+					}
+				}
+			}
+		}
 	}
-
-
 
 	@FXML
 	void openActivity(ActionEvent event) {
