@@ -33,10 +33,21 @@ public class startpageController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// add proejct to the listview
-		for (Project project : Library.projects) {
-			listviewOfProjects.getItems().add(project.getName());
-
-		}
+        for (User user : Library.developers) {
+            if (user.isLoggedIn()) {
+                for (Project project : Library.projects) {
+                	if(project.getProjectLeader().equals(user.getName())) {
+                		 listviewOfProjects.getItems().add(project.getName());
+                	}
+                	for (User u : project.getListOfDevelopers()) {
+                        if (u.equals(user)) {
+                           
+                        	listviewOfProjects.getItems().add(project.getName());
+                        }
+                    }
+                }
+            }
+        }
 
 		//Open the project that has been clicked
 		listviewOfProjects.setOnMouseClicked(e -> {
