@@ -73,7 +73,7 @@ public class projectleaderActivityViewController implements Initializable {
 		    Text item = new Text(key + " Has Worked: " + value + " hours \n");
 		    item.setFill(Color.BLACK);
 		    hoursWorked.getChildren().addAll(bulletPoint, item);
-		    if(a.isCompleted()) {
+		    if(a.getRemainingTime()==0) {
 		    	activityName.setText(a.getName() + " Task is Completed");
 		    }
 		}

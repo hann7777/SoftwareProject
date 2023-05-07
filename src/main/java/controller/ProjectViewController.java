@@ -253,44 +253,45 @@ public class ProjectViewController implements Initializable {
 
 	@FXML
 	void openActivity(ActionEvent event) {
-		openActivityButton.setDisable(false);
+		// if the activity is completed the developers cant open the activity but the
+		// project leader at all time has access
+		
 		if (selectedActivity != null) {
 			// check wether an activity is completed
 			if (selectedActivity.getRemainingTime() == 0) {
 				for (Activity activity : p.getListOfActivities()) {
 					if (selectedActivity == activity) {
-						if (activity.getRemainingTime()==0) {
+						if (activity.getRemainingTime() == 0) {
 							for (User user : activity.getListOfDevelopers()) {
 								if (user.isLoggedIn() && !(p.getProjectLeader().equals(user.getName()))) {
-									openActivityButton.setDisable(true);
-									openActivityButton.setText("Activity is Completed");
-									break;
 
-								} else if(user.isLoggedIn() && (p.getProjectLeader().equals(user.getName()))) {
-									openActivityButton.setDisable(false);
-									viewSwitcher.switchTo(View.PROJECTLEADERACTIVITYVIEW);
-									break;
+								} else {
+									for (User u : Main.library.getDevelopers()) {
+										if (u.isLoggedIn() && p.getProjectLeader().equals(u.getName())) {
+											viewSwitcher.switchTo(View.PROJECTLEADERACTIVITYVIEW);
+										}
+									}
 								}
 							}
 						}
 					}
 
 				}
-			}else {
-			// If the user is a project leader on a project, they can't register hours. They
-			// can moderate the work
-			if (selectedActivity.getRemainingTime()!=0) {
-				for (User user : Main.library.getDevelopers()) {
-					if (user.isLoggedIn() && p.getProjectLeader().equals(user.getName())) {
-						viewSwitcher.switchTo(View.PROJECTLEADERACTIVITYVIEW);
-						return;
-					} else {
-						viewSwitcher.switchTo(View.ACTIVITYVIEW);
-						return;
+			} else {
+				// If the user is a project leader on a project, they can't register hours. They
+				// can moderate the work
+				if (selectedActivity.getRemainingTime() != 0) {
+					for (User user : Main.library.getDevelopers()) {
+						if (user.isLoggedIn() && p.getProjectLeader().equals(user.getName())) {
+							viewSwitcher.switchTo(View.PROJECTLEADERACTIVITYVIEW);
+							return;
+						} else {
+							viewSwitcher.switchTo(View.ACTIVITYVIEW);
+							return;
+						}
 					}
 				}
-			} 
-		}
+			}
 		}
 	}
 
