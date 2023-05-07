@@ -40,7 +40,6 @@ public class Activity {
 
 	public void setEstimatedTime(double estimatedTime) {
 		this.estimatedTime = estimatedTime;
-		remainingTime=remainingTime-estimatedTime;
 	}
 
 	public double getRemainingTime() {
@@ -48,13 +47,13 @@ public class Activity {
 	}
 
 	public void setRemainingTime(double remainingTime) {
-		this.remainingTime = remainingTime;
+		this.remainingTime-=remainingTime;
 	}
 
 	public boolean isCompleted() {
 		return isCompleted;
 	}
-
+  
 	public void setCompleted(boolean isCompleted) {
 		this.isCompleted = isCompleted;
 	}

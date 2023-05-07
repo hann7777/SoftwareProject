@@ -215,7 +215,7 @@ public class ProjectViewController implements Initializable {
 					if (!listOfActivitiesOnProject.getItems().contains(activity.getName())) {
 						listOfActivitiesOnProject.getItems().add(activity.getName());
 					}
-				}
+				} 
 			}
 		}
 
@@ -279,6 +279,7 @@ public class ProjectViewController implements Initializable {
 
 								} else {
 									openActivityButton.setDisable(false);
+									return;
 								}
 							}
 						}

@@ -36,21 +36,22 @@ public class activityViewController implements Initializable {
 
 	private double timeInput;
 
+	private boolean onlyOnce = false;
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		p = startpageController.selectedProject;
 		a = ProjectViewController.selectedActivity;
 
-		if (remaining == 0) {
-			remaining = a.getEstimatedTime();
-		}
+		
+		
 
 		// display the specific activity info
 		activityName.setText(a.getName());
 		estimatedTime.setText("Estimated time: " + a.getEstimatedTime());
 
 		// display the unaccounted time
-		timeUnaccountedFor.setText("Time Unaccounted for: " + remaining);
+		timeUnaccountedFor.setText("Time Unaccounted for: " + a.getRemainingTime());
 
 	}
 
@@ -70,11 +71,11 @@ public class activityViewController implements Initializable {
 		} catch (Exception e) {
 			return;
 		}
-		if (remaining <= 0) {
+		if (a.getRemainingTime() <= 0) {
 			return;
 		}
 		if (timeInput <= a.getEstimatedTime()) {
-			remaining -= timeInput;
+			a.setRemainingTime(timeInput);
 		}
 
 		// add the registered time to the users memory

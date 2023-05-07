@@ -79,8 +79,8 @@ public class TimeRegisteredSteps {
 
 	@Then("he registers {double} hours to the activity")
 	public void heRegistersHoursToTheActivity(Double double1) {
-		activity.setEstimatedTime(double1);
-		assertEquals(10.0, activity.getEstimatedTime());
+		activity.setRemainingTime(double1);
+		assertEquals(0.5, activity.getRemainingTime());
 	}
 
 	@Then("the remainingtime updates to {double}")
@@ -98,7 +98,7 @@ public class TimeRegisteredSteps {
 		}
 
 		assertFalse(isPossible);
-	}
+	} 
 
 	@Then("the remainingtime stays at {double};")
 	public void theRemainingtimeStaysAt(Double double1) {
