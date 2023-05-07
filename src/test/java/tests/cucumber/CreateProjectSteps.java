@@ -52,7 +52,7 @@ public class CreateProjectSteps {
 	public void theProjectWithNameIsCreatedAndHasProjectID(String string, String string2) {
 		assertNotNull(project);
 		assertEquals(string, project.getName());
-		assertEquals(string2, project.getId());
+		assertEquals(string2, library.getProjects().get(0).getId());
 	}
 
 	@Given("the project leader creates a project with title {string}, with the description {string}, a start date {string} before the date it is created, and an end date {string}")

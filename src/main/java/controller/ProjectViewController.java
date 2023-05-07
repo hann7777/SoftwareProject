@@ -215,7 +215,7 @@ public class ProjectViewController implements Initializable {
 					if (!listOfActivitiesOnProject.getItems().contains(activity.getName())) {
 						listOfActivitiesOnProject.getItems().add(activity.getName());
 					}
-				} 
+				}
 			}
 		}
 
@@ -253,11 +253,33 @@ public class ProjectViewController implements Initializable {
 
 	@FXML
 	void openActivity(ActionEvent event) {
-
+		openActivityButton.setDisable(false);
 		if (selectedActivity != null) {
+			// check wether an activity is completed
+			if (selectedActivity.getRemainingTime() == 0) {
+				for (Activity activity : p.getListOfActivities()) {
+					if (selectedActivity == activity) {
+						if (activity.getRemainingTime()==0) {
+							for (User user : activity.getListOfDevelopers()) {
+								if (user.isLoggedIn() && !(p.getProjectLeader().equals(user.getName()))) {
+									openActivityButton.setDisable(true);
+									openActivityButton.setText("Activity is Completed");
+									break;
+
+								} else if(user.isLoggedIn() && (p.getProjectLeader().equals(user.getName()))) {
+									openActivityButton.setDisable(false);
+									viewSwitcher.switchTo(View.PROJECTLEADERACTIVITYVIEW);
+									break;
+								}
+							}
+						}
+					}
+
+				}
+			}else {
 			// If the user is a project leader on a project, they can't register hours. They
 			// can moderate the work
-			if (!selectedActivity.isCompleted()) {
+			if (selectedActivity.getRemainingTime()!=0) {
 				for (User user : Main.library.getDevelopers()) {
 					if (user.isLoggedIn() && p.getProjectLeader().equals(user.getName())) {
 						viewSwitcher.switchTo(View.PROJECTLEADERACTIVITYVIEW);
@@ -267,26 +289,8 @@ public class ProjectViewController implements Initializable {
 						return;
 					}
 				}
-			} else {
-				// check wether an activity is completed
-				for (Activity activity : p.getListOfActivities()) {
-					if (selectedActivity == activity) {
-						if (activity.isCompleted()) {
-							for (User user : activity.getListOfDevelopers()) {
-								if (user.isLoggedIn() && !(p.getProjectLeader().equals(user.getName()))) {
-									openActivityButton.setDisable(true);
-									openActivityButton.setText("Activity is Completed");
-
-								} else {
-									openActivityButton.setDisable(false);
-									return;
-								}
-							}
-						}
-					}
-
-				}
-			}
+			} 
+		}
 		}
 	}
 

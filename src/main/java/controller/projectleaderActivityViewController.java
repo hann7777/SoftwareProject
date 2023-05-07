@@ -59,11 +59,8 @@ public class projectleaderActivityViewController implements Initializable {
 		p = startpageController.selectedProject;
 		a = ProjectViewController.selectedActivity;
 
-		if (activityViewController.remaining == 0) {
-			activityViewController.remaining = a.getEstimatedTime();
-		}
 		// add the users to the listview
-		for (User user : p.getListOfDevelopers()) {
+		for (User user : p.getListOfDevelopers()) { 
 			listOfDevelopers.getItems().add(user.getInitials());
 
 		}
@@ -86,7 +83,7 @@ public class projectleaderActivityViewController implements Initializable {
 		activityName.setText(a.getName());
 		estimatedTime.setText("Estimated time: " + a.getEstimatedTime());
 		// display the unaccounted time
-		timeUnaccountedFor.setText("Time Unaccounted for: " + activityViewController.remaining);
+		timeUnaccountedFor.setText("Time Unaccounted for: " + a.getRemainingTime());
 
 		listOfDevelopers.setCellFactory(CheckBoxListCell.forListView(new Callback<String, ObservableValue<Boolean>>() {
 			@Override
