@@ -1,6 +1,6 @@
 Feature: create project:
 
-Description: adds a project deadline, name, activities to a project. And the project leader can add a member to the list, if none then an employee can do it, the employee can register how much time spent on an activity.
+Description: Creating project with name,description, start and end date.
 Actor: User
 
 Scenario: User is a project leader and creates a project successfully
