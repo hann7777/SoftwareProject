@@ -17,3 +17,5 @@ Scenario: a project leader tries to edit an Activity
 	Then he edit the name of the Activity from "first" to "newfirst"
 	Then he can edit the estimatedTime from 10.5 to 11.5
 	
+
+	
