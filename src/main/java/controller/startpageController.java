@@ -32,6 +32,7 @@ public class startpageController implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
 		// add proejct to the listview
         for (User user : Library.developers) {
             if (user.isLoggedIn()) {
