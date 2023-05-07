@@ -1,20 +1,31 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Activity {
 	private String name;
 	private double estimatedTime;
 	private boolean isCompleted;
+	private double remainingTime;
 	private ArrayList<User> listOfDevelopers= new ArrayList<User>();
+	private Map<String, Double> registeredHours;
+	
  
 	public Activity(String name, double estimatedTime) {
 		super();
+		
 		this.name = name;
 		this.estimatedTime = estimatedTime;
+		remainingTime = estimatedTime;
+		registeredHours = new HashMap<>();
+        listOfDevelopers = new ArrayList<User>();
 
 	}
+	
 
+	
 	public String getName() {
 		return name;
 	}
@@ -29,6 +40,15 @@ public class Activity {
 
 	public void setEstimatedTime(double estimatedTime) {
 		this.estimatedTime = estimatedTime;
+		remainingTime=remainingTime-estimatedTime;
+	}
+
+	public double getRemainingTime() {
+		return remainingTime;
+	}
+
+	public void setRemainingTime(double remainingTime) {
+		this.remainingTime = remainingTime;
 	}
 
 	public boolean isCompleted() {
@@ -54,5 +74,12 @@ public class Activity {
 	public void removeDeveloper(User user) {
 		listOfDevelopers.remove(user);
 	}
+	public Map<String, Double> getRegisteredHours() {
+        return registeredHours;
+    }
+
+    public void setRegisteredHours(String initials, double time) {
+        this.registeredHours.put(initials, time);
+    }
 
 }
