@@ -54,7 +54,7 @@ public class createProjectViewController implements Initializable {
 	public void addDeveloperToListview() {
 
 	}
-
+ 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 

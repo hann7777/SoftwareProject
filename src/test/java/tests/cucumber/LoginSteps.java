@@ -26,71 +26,62 @@ public class LoginSteps {
 	@Given("that the planning tool has a list of registered developers:")
 	public void thatThePlanningToolHasAListOfRegisteredDevelopers(io.cucumber.datatable.DataTable dataTable) {
 		List<Map<String, String>> developersData = dataTable.asMaps(String.class, String.class);
-		library= new Library();
-        for (Map<String, String> developerData : developersData) {
-        	boolean isProjectLeader = Boolean.parseBoolean(developerData.get("isP"));
-            String name = developerData.get("name");
-            String initials = developerData.get("initials");
+		library = new Library();
+		for (Map<String, String> developerData : developersData) {
+			boolean isProjectLeader = Boolean.parseBoolean(developerData.get("isP"));
+			String name = developerData.get("name");
+			String initials = developerData.get("initials");
 
-          
-            library.getDevelopers().add(new User(isProjectLeader, initials, name));
-            
-      
-        }
-	}
-	
-	@Given("the initials {string} is registred with the name {string}")
-	public void theInitialsIsRegistred(String string, String string2) {
-		for(User user : library.getDevelopers()) {
-			if(user.getInitials().equals(string)) {
-				assertEquals("abas", user.getInitials());
-			}
-		
+			library.getDevelopers().add(new User(isProjectLeader, initials, name));
 
 		}
-	
+	}
+
+	@Given("the initials {string} is registred with the name {string}")
+	public void theInitialsIsRegistred(String string, String string2) {
+		for (User user : library.getDevelopers()) {
+			if (user.getInitials().equals(string)) {
+				assertEquals("abas", user.getInitials());
+			}
+
+		}
+
 	}
 
 	@When("{string} clicks login after typing in his initials")
 	public void clicksLoginAfterTypingInHisInitials(String string) {
-		for(User user : library.getDevelopers()) {
+		for (User user : library.getDevelopers()) {
 			if (user.getInitials().equals(string)) {
 				user.setLoggedIn(true);
 				assertEquals(true, user.isLoggedIn());
 			}
-			if(!user.getInitials().equals(string)){
+			if (!user.getInitials().equals(string)) {
 				user.setLoggedIn(false);
 				assertEquals(false, user.isLoggedIn());
 			}
 		}
-	
-		
-		
-		
-		
+
 	}
 
 	@Then("the startpage is displayed")
 	public void theStartpageIsDisplayed() {
-		for(User user : library.getDevelopers()) {
+		for (User user : library.getDevelopers()) {
 			if (user.isLoggedIn()) {
-			viewSwitcher.switchTo(View.STARTPAGE);
+				viewSwitcher.switchTo(View.STARTPAGE);
+			}
 		}
-		}
-		
 
 	}
- 
-	
+
 	@Given("{string} is not registred")
 	public void isNotRegistred(String string) {
-		boolean isNotRegistrered =false;
-		for(User user : library.getDevelopers()) {
-			if(user.getInitials().contains(string)) {
+		boolean isNotRegistrered = false;
+		for (User user : library.getDevelopers()) {
+			if (user.getInitials().contains(string)) {
 				isNotRegistrered = true;
 				break;
 			}
-			
+
 		}
 		assertFalse(isNotRegistrered);
 
@@ -98,6 +89,6 @@ public class LoginSteps {
 
 	@Then("the startpage is not displayed")
 	public void theStartpageIsNotDisplayed() {
-		  viewSwitcher.switchTo(View.LOGIN);
+		viewSwitcher.switchTo(View.LOGIN);
 	}
 }
