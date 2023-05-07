@@ -23,8 +23,8 @@ public class LoginSteps {
 	private Project project;
 	private Boolean isProjectLeader;
 
-	@Given("that the planning tool has a list of registered developers:")
-	public void thatThePlanningToolHasAListOfRegisteredDevelopers(io.cucumber.datatable.DataTable dataTable) {
+	@Given("that some people are registered to the system:")
+	public void thatSomePeopleAreRegisteredToTheSystem(io.cucumber.datatable.DataTable dataTable) {
 		List<Map<String, String>> developersData = dataTable.asMaps(String.class, String.class);
 		library = new Library();
 		for (Map<String, String> developerData : developersData) {

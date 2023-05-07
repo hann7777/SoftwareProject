@@ -1,7 +1,7 @@
 Feature: login
 
-Background: The planning tool has a list of developers
-Given that the planning tool has a list of registered developers:
+Background: Four users are registered in the library
+Given that some people are registered to the system:
 |isP|name|initials|
 |true| "hassen ali nasrallah" | "han" |
 |true| "saeed mo ali" | "sma" |
