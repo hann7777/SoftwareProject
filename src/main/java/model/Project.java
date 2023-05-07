@@ -14,8 +14,8 @@ public class Project {
 	private ArrayList<Activity> listOfActivities;
 	private ArrayList<User> listOfDevelopers;
 	private String description;
-	private int counter = 000;
 	private String projectLeader;
+	private static int counter = 0;
 
 	public Project(String name, LocalDate startDate, LocalDate endDate, String description) {
 		super();
@@ -31,6 +31,7 @@ public class Project {
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.description = description;
+		
 		listOfDevelopers = new ArrayList<>();
 		listOfActivities = new ArrayList<>();
 		counter++;
