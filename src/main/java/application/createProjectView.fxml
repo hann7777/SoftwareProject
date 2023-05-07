@@ -13,7 +13,7 @@
    <children>
       <Pane prefHeight="700.0" prefWidth="700.0" styleClass="styles.css" stylesheets="@styles.css">
          <children>
-            <Label layoutX="299.0" layoutY="98.0" prefHeight="61.0" prefWidth="124.0" text="Project info">
+            <Label fx:id="projectInfoLabel" alignment="CENTER" layoutX="16.0" layoutY="96.0" prefHeight="61.0" prefWidth="669.0" text="Project info">
                <font>
                   <Font name="Dubai Bold" size="24.0" />
                </font>
@@ -21,7 +21,7 @@
             <TextField fx:id="projectName" layoutX="199.0" layoutY="199.0" prefHeight="33.0" prefWidth="324.0" promptText="name" styleClass="styles.css" stylesheets="@styles.css" />
             <TextField fx:id="projectDescription" layoutX="199.0" layoutY="255.0" prefHeight="33.0" prefWidth="324.0" promptText="description" />
             <ListView fx:id="listviewOfDevelopers" layoutX="199.0" layoutY="379.0" prefHeight="200.0" prefWidth="324.0" />
-            <Label layoutX="199.0" layoutY="359.0" text="Add Developer">
+            <Label fx:id="developerLabel" layoutX="199.0" layoutY="359.0" text="Add Developer">
                <font>
                   <Font name="Dubai Bold" size="14.0" />
                </font>
@@ -29,7 +29,7 @@
             <DatePicker fx:id="startDate" layoutX="197.0" layoutY="314.0" prefHeight="35.0" prefWidth="145.0" promptText="start date" />
             <DatePicker fx:id="endDate" layoutX="384.0" layoutY="314.0" prefHeight="35.0" prefWidth="139.0" promptText="end date" />
             <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#back" prefHeight="25.0" prefWidth="87.0" text="Back" />
-            <Button layoutX="294.0" layoutY="598.0" mnemonicParsing="false" onAction="#submit" prefHeight="30.0" prefWidth="112.0" text="Submit" />
+            <Button fx:id="submitButton" layoutX="294.0" layoutY="598.0" mnemonicParsing="false" onAction="#submit" prefHeight="30.0" prefWidth="112.0" text="Submit" />
             
          </children>
       </Pane>

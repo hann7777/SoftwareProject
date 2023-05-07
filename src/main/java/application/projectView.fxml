@@ -51,6 +51,8 @@
                </font>
             </Label>
             <Button layoutX="408.0" layoutY="565.0" mnemonicParsing="false" onAction="#openActivity" prefHeight="25.0" prefWidth="255.0" text="Open Activity" />
+            <Button fx:id="deleteActivity" layoutX="565.0" layoutY="304.0" mnemonicParsing="false" onAction="#deleteActivity" prefHeight="25.0" prefWidth="98.0" text="Delete Activity" />
+            <Button fx:id="edit" layoutX="599.0" layoutY="14.0" mnemonicParsing="false" onAction="#edit" prefHeight="25.0" prefWidth="87.0" text="Edit" />
          </children>
          <stylesheets>
             <URL value="@styles.css" />

@@ -14,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxListCell;
@@ -26,6 +27,12 @@ public class createActivityViewController implements Initializable {
 
 	@FXML
 	private TextField activityName;
+	
+    @FXML
+    private Label assignDevelopersLabel;
+    
+    @FXML
+    private Label createActivityLabel;
 
 	@FXML
 	private TextField estimatedTime;
@@ -38,7 +45,7 @@ public class createActivityViewController implements Initializable {
 
 	@FXML
 	private Button backButton;
- 
+
 	private boolean isElementsAdded = false;
 
 	private Activity activity;
@@ -52,8 +59,25 @@ public class createActivityViewController implements Initializable {
 
 		// extracting the selected project from the startpage
 		p = startpageController.selectedProject;
+		activity = ProjectViewController.selectedActivity;
 
-		/*
+		// if the activity that is clicked isnt null, we display the info associated
+		for (Activity a : p.getListOfActivities()) {
+			if (activity != null && activity.equals(a)) {
+				activityName.setText(activity.getName());
+				estimatedTime.setText("" + activity.getEstimatedTime());
+				listViewOfDeveloperToBeAdded.setVisible(false);
+				listViewOfDeveloperToBeAdded.setOpacity(0);
+				listViewOfDeveloperToBeAdded.setDisable(true);
+				assignDevelopersLabel.setVisible(false);
+				assignDevelopersLabel.setOpacity(0);
+				assignDevelopersLabel.setDisable(true);
+				submitButton.setLayoutY(286);
+				estimatedTime.setLayoutY(240);
+				createActivityLabel.setText("Editing Activity: " + activity.getName());
+			}
+		}
+		/* 
 		 * adding all developer to the listview once the first time the
 		 * createActivityView scene is displayed
 		 */
@@ -105,21 +129,32 @@ public class createActivityViewController implements Initializable {
 
 			return;
 		}
-		
-		// convert from a string to a double
-		double estimatedTimeConverted = Double.parseDouble(estimatedTime.getText());
 
-		activity = new Activity(activityName.getText(), estimatedTimeConverted);
+		if (activity != null) {
+			double estimatedTimeConverted = Double.parseDouble(estimatedTime.getText());
+			activity.setName(activityName.getText());
+			activity.setEstimatedTime(estimatedTimeConverted);
+			// add the new developers to the activity
+			for (User user : userToBeAdded) {
+				activity.addDeveloper(user);
+			}
 
-		// add the developers to the activity
-		for (User user : userToBeAdded) {
-			activity.addDeveloper(user);
+		} else {
+
+			// convert from a string to a double
+			double estimatedTimeConverted = Double.parseDouble(estimatedTime.getText());
+
+			activity = new Activity(activityName.getText(), estimatedTimeConverted);
+
+			// add the developers to the activity
+			for (User user : userToBeAdded) {
+				activity.addDeveloper(user);
+			}
+
+			// add the activity to the project it was created under
+			p.addActivity(activity);
+			viewSwitcher.switchTo(View.PROJECTVIEW);
 		}
-
-		// add the activity to the project it was created under
-		p.addActivity(activity);
-
-		viewSwitcher.switchTo(View.PROJECTVIEW);
 	}
 
 	@FXML

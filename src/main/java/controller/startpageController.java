@@ -22,36 +22,39 @@ public class startpageController implements Initializable {
 	private Button createProjectButton;
 
 	@FXML
+	private Button deleteProjectButton;
+
+	@FXML
 	private ListView<String> listviewOfProjects;
 
 	@FXML
 	private Button openProjectButton;
 
 	private ProjectViewController pvc;
- 
+
 	public static Project selectedProject;
-	
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
-		// add proejct to the listview
-        for (User user : Main.library.getDevelopers()) {
-            if (user.isLoggedIn()) {
-                for (Project project : Main.library.getProjects()) {
-                	if(project.getProjectLeader().equals(user.getName())) {
-                		 listviewOfProjects.getItems().add(project.getName());
-                	}
-                	for (User u : project.getListOfDevelopers()) {
-                        if (u.equals(user)) {
-                           
-                        	listviewOfProjects.getItems().add(project.getName());
-                        }
-                    }
-                }
-            }
-        }
 
-		//Open the project that has been clicked
+		// add proejct to the listview
+		for (User user : Main.library.getDevelopers()) {
+			if (user.isLoggedIn()) {
+				for (Project project : Main.library.getProjects()) {
+					if (project.getProjectLeader().equals(user.getName())) {
+						listviewOfProjects.getItems().add(project.getName());
+					}
+					for (User u : project.getListOfDevelopers()) {
+						if (u.equals(user)) {
+
+							listviewOfProjects.getItems().add(project.getName());
+						}
+					}
+				}
+			}
+		}
+
+		// Open the project that has been clicked
 		listviewOfProjects.setOnMouseClicked(e -> {
 			for (Project project : Main.library.getProjects()) {
 				String selectedItem = listviewOfProjects.getSelectionModel().getSelectedItem();
@@ -62,45 +65,70 @@ public class startpageController implements Initializable {
 				}
 			}
 		});
-		
-		//remove the create project button for developers that arent hired as project leaders
-		for (User user : Main.library.getDevelopers()) {
-				if(user.isLoggedIn()) {
-						if(!(user.isProjectLeader())) {
-							createProjectButton.setDisable(true);
-							createProjectButton.setOpacity(0);
-						}
-				}
-		}
-				
 
+		// remove the create project and delete project button for developers that arent
+		// hired as project
+		// leaders
+		for (User user : Main.library.getDevelopers()) {
+			if (user.isLoggedIn()) {
+				if (!(user.isProjectLeader())) {
+					createProjectButton.setDisable(true);
+					createProjectButton.setOpacity(0);
+					deleteProjectButton.setDisable(true);
+					deleteProjectButton.setOpacity(0);
+				}
+			}
+		}
 	}
 
 	@FXML
 	void onCreateProject(ActionEvent event) {
-		viewSwitcher.switchTo(View.CREATEPROJECTVIEW);
+		listviewOfProjects.getSelectionModel().clearSelection();
+		if (listviewOfProjects.getSelectionModel().getSelectedItem() == null) {
+			selectedProject = null;
+			viewSwitcher.switchTo(View.CREATEPROJECTVIEW);
+		}
 	}
 
 	@FXML
 	void onOpenProject(ActionEvent event) {
-		if(selectedProject != null) {
+		if (selectedProject != null) {
 			viewSwitcher.switchTo(View.PROJECTVIEW);
-
 		}
 
 	}
-	
 
+	@FXML
+	void onDeleteProject(ActionEvent event) {
+		try {
+			if (selectedProject != null) {
+				for (Project project : Main.library.getProjects()) {
+					if (selectedProject.equals(project)) {
+						for (User user : Main.library.getDevelopers()) {
+							if (user.isLoggedIn()) {
+								if (project.getProjectLeader().equals(user.getName())) {
+									Main.library.getProjects().remove(selectedProject);
+									listviewOfProjects.getItems().remove(project.getName());
+								} else {
+									return;
+								}
+							}
+						}
+					}
+				}
+			}
+		} catch (Exception e) {
+		}
+
+	}
 
 	@FXML
 	void logout(ActionEvent event) {
-		for(User user : Main.library.getDevelopers()) {
-				user.setLoggedIn(false);
-				viewSwitcher.switchTo(View.LOGIN);
+		for (User user : Main.library.getDevelopers()) {
+			user.setLoggedIn(false);
+			viewSwitcher.switchTo(View.LOGIN);
 
+		}
 	}
-	}
-
-	
 
 }

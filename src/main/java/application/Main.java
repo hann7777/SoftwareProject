@@ -24,7 +24,7 @@ public class Main extends Application {
     	viewSwitcher.setScene(scene);
 		stage.setScene(scene);
 		stage.setResizable(false); 
-        stage.show(); 
+        stage.show();
         
    
         User abas = new User(true, "abas", "Abas Ali");

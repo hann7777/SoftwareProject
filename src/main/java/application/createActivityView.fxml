@@ -8,19 +8,18 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.createActivityViewController">
    <children>
       <Pane prefHeight="700.0" prefWidth="700.0" styleClass="styles.css" stylesheets="@styles.css">
          <children>
             <TextField fx:id="activityName" layoutX="224.0" layoutY="194.0" prefHeight="25.0" prefWidth="250.0" promptText="Acitivty name" />
-            <Label alignment="CENTER" layoutX="239.0" layoutY="69.0" prefHeight="17.0" prefWidth="223.0" text="Create Activity">
+            <Label fx:id="createActivityLabel" alignment="CENTER" layoutX="9.0" layoutY="71.0" prefHeight="35.0" prefWidth="681.0" text="Create Activity" textAlignment="CENTER">
                <font>
-                  <Font name="System Bold" size="14.0" />
+                  <Font name="System Bold" size="24.0" />
                </font>
             </Label>
             <ListView fx:id="listViewOfDeveloperToBeAdded" layoutX="226.0" layoutY="271.0" prefHeight="221.0" prefWidth="250.0" />
-            <Label layoutX="225.0" layoutY="239.0" prefHeight="20.0" prefWidth="124.0" text="Assign developers">
+            <Label fx:id="assignDevelopersLabel" layoutX="225.0" layoutY="239.0" prefHeight="20.0" prefWidth="124.0" text="Assign developers">
                <font>
                   <Font size="14.0" />
                </font>

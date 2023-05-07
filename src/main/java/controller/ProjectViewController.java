@@ -37,7 +37,10 @@ public class ProjectViewController implements Initializable {
 	private Button apply;
 
 	@FXML
-	private TextFlow description; 
+	private Button deleteActivity;
+
+	@FXML
+	private TextFlow description;
 
 	@FXML
 	private Label endDate;
@@ -60,6 +63,9 @@ public class ProjectViewController implements Initializable {
 	@FXML
 	private Button backButton;
 
+	@FXML
+	private Button edit;
+
 	private String sDateFormatted;
 
 	private String eDateFormatted;
@@ -79,11 +85,18 @@ public class ProjectViewController implements Initializable {
 		checkboxState = new HashMap<>();
 		p = startpageController.selectedProject;
 
-		// Disable the apply button for non-project leader
+		// Disable the apply and addActivity and DeleteActivity button for non-project
+		// leader
 		for (User user : Main.library.getDevelopers()) {
 			if (user.isLoggedIn() && !p.getProjectLeader().equals(user.getName())) {
 				apply.setDisable(true);
 				apply.setOpacity(0);
+				AddActivityButton.setDisable(true);
+				AddActivityButton.setOpacity(0);
+				deleteActivity.setDisable(true);
+				deleteActivity.setOpacity(0);
+				edit.setDisable(true);
+				edit.setOpacity(0);
 			}
 		}
 
@@ -95,7 +108,7 @@ public class ProjectViewController implements Initializable {
 		text = new Text(p.getDescription());
 
 		// Display the specific project's info
-		projectName.setText(p.getName());
+		projectName.setText(p.getName() + " ID " + p.getId());
 		startDate.setText("Project started: " + sDateFormatted);
 		endDate.setText("Project ends: " + eDateFormatted);
 		description.getChildren().add(text);
@@ -103,25 +116,23 @@ public class ProjectViewController implements Initializable {
 
 		// Add all developers to the ListView of developers
 		for (User user : Main.library.getDevelopers()) {
-				if(user.isLoggedIn() && p.getProjectLeader().equals(user.getName())) {
-					for (User u : Main.library.getDevelopers()) {
-						listOfDevelopersOnProject.getItems().add(u.getInitials());
-						listOfDevelopersOnProject.getItems().remove(user.getInitials());
+			if (user.isLoggedIn() && p.getProjectLeader().equals(user.getName())) {
+				for (User u : Main.library.getDevelopers()) {
+					listOfDevelopersOnProject.getItems().add(u.getInitials());
+					listOfDevelopersOnProject.getItems().remove(user.getInitials());
 				}
-				
-		}
+
+			}
 		}
 		// Add all developers to the ListView of developers
 		for (User user : Main.library.getDevelopers()) {
-				if(user.isLoggedIn() && !(p.getProjectLeader().equals(user.getName()))) {
-					for (User u : p.getListOfDevelopers()) {
-						listOfDevelopersOnProject.getItems().add(u.getInitials());
+			if (user.isLoggedIn() && !(p.getProjectLeader().equals(user.getName()))) {
+				for (User u : p.getListOfDevelopers()) {
+					listOfDevelopersOnProject.getItems().add(u.getInitials());
 				}
-				
+
+			}
 		}
-		}
-		
-		
 
 		for (User u : Main.library.getDevelopers()) {
 			if (u.isLoggedIn() && p.getProjectLeader().equals(u.getName())) {
@@ -205,26 +216,17 @@ public class ProjectViewController implements Initializable {
 			}
 		}
 
-		// Remove the AddActivity button for developers who aren't a project leader on
-		// the specific project
-		for (User user : Main.library.getDevelopers()) {
-			if (user.isLoggedIn() && !p.getProjectLeader().equals(user.getName())) {
-				AddActivityButton.setDisable(true);
-				AddActivityButton.setOpacity(0);
-			}
-		}
-
 		// Open the activity that has been clicked
 		listOfActivitiesOnProject.setOnMouseClicked(e -> {
-		    for (Activity activity : p.getListOfActivities()) {
-		        String selectedItem = listOfActivitiesOnProject.getSelectionModel().getSelectedItem();
-		        if (selectedItem != null && activity.getName().equals(selectedItem)) {
-		            selectedActivity = activity;
-		        	break;
-		        }
-		    }
+			for (Activity activity : p.getListOfActivities()) {
+				String selectedItem = listOfActivitiesOnProject.getSelectionModel().getSelectedItem();
+				if (selectedItem != null && activity.getName().equals(selectedItem)) {
+					selectedActivity = activity;
+					break;
+				}
+			}
 		});
-		
+
 	}
 
 	@FXML
@@ -265,12 +267,48 @@ public class ProjectViewController implements Initializable {
 
 	@FXML
 	void addActivity(ActionEvent event) {
+		selectedActivity = null;
 		viewSwitcher.switchTo(View.CREATEACTIVITYVIEW);
+
+	}
+
+	@FXML
+	void deleteActivity(ActionEvent event) {
+		// deleting the specific activity on the project
+		try {
+			if (selectedActivity != null) {
+				for (Project project : Main.library.getProjects()) {
+					if (project.equals(p)) {
+						for (Activity activity : p.getListOfActivities()) {
+							if (activity.equals(selectedActivity)) {
+								for (User user : Main.library.getDevelopers()) {
+									if (user.isLoggedIn()) {
+										if (project.getProjectLeader().equals(user.getName())) {
+											p.getListOfActivities().remove(activity);
+											listOfActivitiesOnProject.getItems().remove(activity.getName());
+										} else {
+											return;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		} catch (Exception e) {
+		}
+
 	}
 
 	@FXML
 	void back(ActionEvent event) {
 		viewSwitcher.switchTo(View.STARTPAGE);
+	}
+
+	@FXML
+	void edit(ActionEvent event) {
+		viewSwitcher.switchTo(View.CREATEPROJECTVIEW);
 	}
 
 	// Helper method to get User object by initials

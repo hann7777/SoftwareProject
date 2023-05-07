@@ -14,6 +14,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.cell.CheckBoxListCell;
@@ -36,6 +37,9 @@ public class projectleaderActivityViewController implements Initializable {
 	@FXML
 	private Label timeUnaccountedFor;
 
+	@FXML
+	private Button edit;
+
 	private Activity a;
 
 	private Project p;
@@ -49,6 +53,9 @@ public class projectleaderActivityViewController implements Initializable {
 		p = startpageController.selectedProject;
 		a = ProjectViewController.selectedActivity;
 
+		if (activityViewController.remaining == 0) {
+			activityViewController.remaining = a.getEstimatedTime();
+		}
 		// add the users to the listview
 		for (User user : p.getListOfDevelopers()) {
 			listOfDevelopers.getItems().add(user.getInitials());
@@ -107,7 +114,11 @@ public class projectleaderActivityViewController implements Initializable {
 	@FXML
 	void back(ActionEvent event) {
 		viewSwitcher.switchTo(View.PROJECTVIEW);
-
+	}
+	
+	@FXML
+	void edit(ActionEvent event) {
+		viewSwitcher.switchTo(View.CREATEACTIVITYVIEW);
 	}
 
 	@FXML

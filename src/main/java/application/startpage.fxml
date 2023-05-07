@@ -7,8 +7,8 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.startpageController">
-   <children>
+<AnchorPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.startpageController">   
+<children>
       <Pane prefHeight="700.0" prefWidth="700.0" styleClass="styles.css" stylesheets="@styles.css">
          <children>
             <Button fx:id="createProjectButton" layoutX="224.0" layoutY="82.0" mnemonicParsing="false" onAction="#onCreateProject" prefHeight="42.0" prefWidth="253.0" text="Create Project" />
@@ -20,6 +20,7 @@
             <ListView fx:id="listviewOfProjects" layoutX="134.0" layoutY="230.0" prefHeight="345.0" prefWidth="433.0" />
             <Button fx:id="openProjectButton" layoutX="134.0" layoutY="593.0" mnemonicParsing="false" onAction="#onOpenProject" prefHeight="25.0" prefWidth="114.0" text="Open Project" />
             <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#logout" prefHeight="25.0" prefWidth="87.0" text="Logout" />
+            <Button fx:id="deleteProjectButton" layoutX="453.0" layoutY="593.0" mnemonicParsing="false" onAction="#onDeleteProject" prefHeight="25.0" prefWidth="114.0" text="Delete Project" />
          </children>
       </Pane>
    </children>

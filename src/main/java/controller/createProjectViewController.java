@@ -14,26 +14,36 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.util.Callback;
-import model.Library;
 import model.Project;
 import model.User;
 
 public class createProjectViewController implements Initializable {
 
 	@FXML
+	private Label developerLabel;
+
+	@FXML
+	private Label projectInfoLabel;
+
+	@FXML
 	private DatePicker endDate;
+
+	@FXML
+	private Button submitButton;
 
 	@FXML
 	private ListView<String> listviewOfDevelopers;
 
 	@FXML
 	private TextField projectDescription;
- 
+
 	@FXML
 	private TextField projectName;
 
@@ -46,19 +56,26 @@ public class createProjectViewController implements Initializable {
 
 	private ArrayList<User> userToBeAdded = new ArrayList<User>();
 
-	@FXML
-	void back(ActionEvent event) {
-		viewSwitcher.switchTo(View.STARTPAGE);
-	}
-
-	public void addDeveloperToListview() {
-
-	}
- 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
-		// adding all developer to the listview once the first time the createProjectView is displayed
+		project = startpageController.selectedProject;
+		// if the project that is clicked isnt null, we display the info associated
+		for (Project p : Main.library.getProjects()) {
+			if (project != null && project.equals(p)) {
+				projectName.setText(project.getName());
+				projectDescription.setText(project.getDescription());
+				startDate.setValue(project.getStartDate());
+				endDate.setValue(project.getEndDate());
+				listviewOfDevelopers.setVisible(false);
+				listviewOfDevelopers.setOpacity(0);
+				listviewOfDevelopers.setDisable(true);
+				developerLabel.setVisible(false);
+				submitButton.setLayoutY(375);
+				projectInfoLabel.setText("Editing Project: " + project.getName());
+			}
+		}
+		// adding all developer to the listview once the first time the
+		// createProjectView is displayed
 		if (!isElementsAdded) {
 			if (listviewOfDevelopers.getItems().isEmpty()) {
 				for (User user : Main.library.getDevelopers()) {
@@ -102,14 +119,26 @@ public class createProjectViewController implements Initializable {
 
 	@FXML
 	void submit(ActionEvent event) {
+		LocalDate sDate = startDate.getValue();
+		LocalDate eDate = endDate.getValue();
 		if (projectName.getText().isEmpty() || startDate.getValue() == null || endDate.getValue() == null) {
 			return;
 		}
-		LocalDate sDate = startDate.getValue();
-		LocalDate eDate = endDate.getValue();
 		// checking that the start and end date is valid
 		if (eDate.compareTo(sDate) < 0 || eDate.compareTo(sDate) == 0 || sDate.isBefore(LocalDate.now())) {
 			return;
+		}
+		// edit the existing project
+		if (project != null) {
+
+			project.setName(projectName.getText());
+			project.setDescription(projectName.getText());
+			project.setStartDate(sDate);
+			project.setEndDate(eDate);
+			for (User user : userToBeAdded) {
+				project.addDeveloper(user);
+			}
+			// create a completely new project
 		} else {
 
 			project = new Project(projectName.getText(), sDate, eDate, projectDescription.getText());
@@ -119,7 +148,13 @@ public class createProjectViewController implements Initializable {
 			}
 
 			viewSwitcher.switchTo(View.STARTPAGE);
+
 		}
+	}
+
+	@FXML
+	void back(ActionEvent event) {
+		viewSwitcher.switchTo(View.STARTPAGE);
 	}
 
 }
