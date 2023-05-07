@@ -3,6 +3,7 @@ package controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import application.Main;
 import application.viewSwitcher;
 import application.viewSwitcher.View;
 import javafx.event.ActionEvent;
@@ -23,7 +24,7 @@ public class LoginController {
 
 	@FXML
 	void onLogin(ActionEvent event) {
-
+ 
 		if (checkInitials(logInField.getText())) {
 			viewSwitcher.switchTo(View.STARTPAGE);
 		}
@@ -35,7 +36,7 @@ public class LoginController {
 		}
 
 		else {
-			for (User user : Library.developers) {
+			for (User user : Main.library.getDevelopers()) {
 				if (user.getInitials().equals(initials)) {
 					user.setLoggedIn(true);
 					return true;

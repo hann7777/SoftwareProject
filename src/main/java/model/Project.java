@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.Year;
 import java.util.ArrayList;
 
+import application.Main;
+
 public class Project {
 	private String name;
 	private String id;
@@ -19,11 +21,11 @@ public class Project {
 	public Project(String name, LocalDate startDate, LocalDate endDate, String description) {
 		super();
 		
-		for(User user : Library.developers) {
+		for(User user : Main.library.getDevelopers()) {
 			if(user.isLoggedIn()) {
 				if(user.isProjectLeader()) {
 					projectLeader = user.getName();
-				}
+				} 
 			}
 		}
 		this.name = name;
@@ -34,7 +36,7 @@ public class Project {
 		listOfActivities = new ArrayList<>();
 		counter++;
 		generateID();
-		Library.projects.add(this);
+		Main.library.getProjects().add(this);
 
 	}
 

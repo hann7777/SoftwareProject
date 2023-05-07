@@ -13,7 +13,8 @@ import model.User;
 
 
 public class Main extends Application {
-
+	public static Library library= new Library();
+    
     @Override
     public void start(Stage stage) throws IOException {
     	Parent root = viewSwitcher.root;
@@ -22,10 +23,10 @@ public class Main extends Application {
 		scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
     	viewSwitcher.setScene(scene);
 		stage.setScene(scene);
-		stage.setResizable(false);
+		stage.setResizable(false); 
         stage.show(); 
         
-        
+   
         User abas = new User(true, "abas", "Abas Ali");
     	User saeed = new User(true, "saee", "Saaed Amin");
         User jon = new User(false, "jon", "jon");

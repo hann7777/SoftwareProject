@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import application.Main;
 import application.viewSwitcher;
 import application.viewSwitcher.View;
 import javafx.beans.property.BooleanProperty;
@@ -36,7 +37,7 @@ public class ProjectViewController implements Initializable {
 	private Button apply;
 
 	@FXML
-	private TextFlow description;
+	private TextFlow description; 
 
 	@FXML
 	private Label endDate;
@@ -79,7 +80,7 @@ public class ProjectViewController implements Initializable {
 		p = startpageController.selectedProject;
 
 		// Disable the apply button for non-project leader
-		for (User user : Library.developers) {
+		for (User user : Main.library.getDevelopers()) {
 			if (user.isLoggedIn() && !p.getProjectLeader().equals(user.getName())) {
 				apply.setDisable(true);
 				apply.setOpacity(0);
@@ -101,9 +102,9 @@ public class ProjectViewController implements Initializable {
 		projectLeaderLabel.setText("Project leader: " + p.getProjectLeader());
 
 		// Add all developers to the ListView of developers
-		for (User user : Library.developers) {
+		for (User user : Main.library.getDevelopers()) {
 				if(user.isLoggedIn() && p.getProjectLeader().equals(user.getName())) {
-					for (User u : Library.developers) {
+					for (User u : Main.library.getDevelopers()) {
 						listOfDevelopersOnProject.getItems().add(u.getInitials());
 						listOfDevelopersOnProject.getItems().remove(user.getInitials());
 				}
@@ -111,7 +112,7 @@ public class ProjectViewController implements Initializable {
 		}
 		}
 		// Add all developers to the ListView of developers
-		for (User user : Library.developers) {
+		for (User user : Main.library.getDevelopers()) {
 				if(user.isLoggedIn() && !(p.getProjectLeader().equals(user.getName()))) {
 					for (User u : p.getListOfDevelopers()) {
 						listOfDevelopersOnProject.getItems().add(u.getInitials());
@@ -122,7 +123,7 @@ public class ProjectViewController implements Initializable {
 		
 		
 
-		for (User u : Library.developers) {
+		for (User u : Main.library.getDevelopers()) {
 			if (u.isLoggedIn() && p.getProjectLeader().equals(u.getName())) {
 				listOfDevelopersOnProject.setCellFactory(CheckBoxListCell.forListView(item -> {
 					BooleanProperty observable = new SimpleBooleanProperty();
@@ -194,7 +195,7 @@ public class ProjectViewController implements Initializable {
 		 * clicked on, then that user can see all activities associated with the
 		 * project.
 		 */
-		for (User user : Library.developers) {
+		for (User user : Main.library.getDevelopers()) {
 			if (user.isLoggedIn() && p.getProjectLeader().equals(user.getName())) {
 				for (Activity activity : p.getListOfActivities()) {
 					if (!listOfActivitiesOnProject.getItems().contains(activity.getName())) {
@@ -206,7 +207,7 @@ public class ProjectViewController implements Initializable {
 
 		// Remove the AddActivity button for developers who aren't a project leader on
 		// the specific project
-		for (User user : Library.developers) {
+		for (User user : Main.library.getDevelopers()) {
 			if (user.isLoggedIn() && !p.getProjectLeader().equals(user.getName())) {
 				AddActivityButton.setDisable(true);
 				AddActivityButton.setOpacity(0);
@@ -235,7 +236,7 @@ public class ProjectViewController implements Initializable {
 		for (String item : listOfDevelopersOnProject.getItems()) {
 			BooleanProperty state = checkboxState.get(item);
 			if (state != null && state.get()) {
-				for (User user : Library.developers) {
+				for (User user : Main.library.getDevelopers()) {
 					if (user.getInitials().equals(item)) {
 						p.getListOfDevelopers().add(user);
 						break;
@@ -250,7 +251,7 @@ public class ProjectViewController implements Initializable {
 		if (selectedActivity != null) {
 			// If the user is a project leader on a project, they can't register hours. They
 			// can moderate the work.
-			for (User user : Library.developers) {
+			for (User user : Main.library.getDevelopers()) {
 				if (user.isLoggedIn() && p.getProjectLeader().equals(user.getName())) {
 					viewSwitcher.switchTo(View.PROJECTLEADERACTIVITYVIEW);
 					return;
@@ -274,7 +275,7 @@ public class ProjectViewController implements Initializable {
 
 	// Helper method to get User object by initials
 	private User getUserByInitials(String initials) {
-		for (User user : Library.developers) {
+		for (User user : Main.library.getDevelopers()) {
 			if (user.getInitials().equals(initials)) {
 				return user;
 			}

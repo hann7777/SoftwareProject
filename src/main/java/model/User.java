@@ -1,5 +1,7 @@
 package model;
 
+import application.Main;
+
 public class User {
 	
 	private boolean isProjectLeader = false;
@@ -15,8 +17,9 @@ public class User {
 		this.isProjectLeader = isProjectLeader;
 		this.initials = initials;
 		this.name = name;
-		Library.developers.add(this);
+		Main.library.getDevelopers().add(this);
 	} 
+
 
 	public void createProject() {
 		

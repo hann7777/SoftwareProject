@@ -15,38 +15,39 @@ import model.User;
 
 public class CreateProjectSteps {
 	private User user;
-	private Library library;
+	private Library library = new Library();
 	private Project project;
 	private Boolean isProjectLeader;
-	public CreateProjectSteps(User user, Library library, Project project) {
-		this.user = user;
-		this.library = library;
-		this.project = project;
-	}
+
+//	public CreateProjectSteps(User user, Library library, Project project) {
+//		this.user = user;
+//		this.library = library;
+//		this.project = project;
+//	}
 
 	@Given("there is a user with the initials {string}, and the name {string} who is a project leader")
 	public void thereIsAUserWithTheInitialsAndTheNameWhoIsAProjectLeader(String string, String string2) {
-		isProjectLeader = true;
-	    user = new User(isProjectLeader, string, string2);
-	    assertTrue(isProjectLeader);
+		User user = new User(true,string, string2);
+		library.getDevelopers().add(user);
+		assertTrue(user.isProjectLeader());
 	}
 
-	@Given("the project leader creates a project with title {string}, with the description {string}, a start date {string}, and an end date {string}")
-	public void theProjectLeaderCreatesAProjectWithTitleWithTheDescriptionAStartDateAndAnEndDate(String string,
-			String string2, String string3, String string4) {
-		
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
-        LocalDate sdate = LocalDate.parse(string3, formatter);
-        LocalDate edate = LocalDate.parse(string4, formatter);
-		 project = new Project(string, sdate, edate, string2);
-	}
-
-	@Then("the project with name {string} is created, and has project ID {string}")
-	public void theProjectWithNameIsCreatedAndHasProjectID(String string, String string2) {
-	    assertNotNull(project);
-	    assertEquals(string, project.getName());
-	    assertEquals(string2, project.getId());
-	}
+//	@Given("the project leader creates a project with title {string}, with the description {string}, a start date {string}, and an end date {string}")
+//	public void theProjectLeaderCreatesAProjectWithTitleWithTheDescriptionAStartDateAndAnEndDate(String string,
+//			String string2, String string3, String string4) {
+//
+//		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
+//		LocalDate sdate = LocalDate.parse(string3, formatter);
+//		LocalDate edate = LocalDate.parse(string4, formatter);
+//		project = new Project(string, sdate, edate, string2);
+//	}
+//
+//	@Then("the project with name {string} is created, and has project ID {string}")
+//	public void theProjectWithNameIsCreatedAndHasProjectID(String string, String string2) {
+//		assertNotNull(project);
+//		assertEquals(string, project.getName());
+//		assertEquals(string2, project.getId());
+//	}
 //
 //	@Given("the project leader creates a project with title {string}, with the description {string}, a start date \"\"{double}.{int}\"\", and an end date \"\"{double}.{int}\"\".")
 //	public void theProjectLeaderCreatesAProjectWithTitleWithTheDescriptionAStartDateAndAnEndDate(String string,

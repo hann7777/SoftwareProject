@@ -1,10 +1,10 @@
 package controller;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import application.Main;
 import application.viewSwitcher;
 import application.viewSwitcher.View;
 import javafx.beans.property.BooleanProperty;
@@ -19,7 +19,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.util.Callback;
 import model.Activity;
-import model.Library;
 import model.Project;
 import model.User;
 
@@ -39,7 +38,7 @@ public class createActivityViewController implements Initializable {
 
 	@FXML
 	private Button backButton;
-
+ 
 	private boolean isElementsAdded = false;
 
 	private Activity activity;
@@ -78,7 +77,7 @@ public class createActivityViewController implements Initializable {
 						observable.addListener((obs, wasSelected, isNowSelected) -> {
 							if (isNowSelected) {
 								// add the user to the project
-								for (User user : Library.developers) {
+								for (User user : Main.library.getDevelopers()) {
 									if (user.getInitials().equals(item)) {
 										userToBeAdded.add(user);
 										break;
@@ -86,7 +85,7 @@ public class createActivityViewController implements Initializable {
 								}
 							} else {
 								// remove the User from the project
-								for (User user : Library.developers) {
+								for (User user : Main.library.getDevelopers()) {
 									if (user.getInitials().equals(item)) {
 										userToBeAdded.remove(user);
 										break;

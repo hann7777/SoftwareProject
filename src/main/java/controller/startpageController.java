@@ -3,6 +3,7 @@ package controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import application.Main;
 import application.viewSwitcher;
 import application.viewSwitcher.View;
 import javafx.event.ActionEvent;
@@ -27,16 +28,16 @@ public class startpageController implements Initializable {
 	private Button openProjectButton;
 
 	private ProjectViewController pvc;
-
+ 
 	public static Project selectedProject;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
 		// add proejct to the listview
-        for (User user : Library.developers) {
+        for (User user : Main.library.getDevelopers()) {
             if (user.isLoggedIn()) {
-                for (Project project : Library.projects) {
+                for (Project project : Main.library.getProjects()) {
                 	if(project.getProjectLeader().equals(user.getName())) {
                 		 listviewOfProjects.getItems().add(project.getName());
                 	}
@@ -52,7 +53,7 @@ public class startpageController implements Initializable {
 
 		//Open the project that has been clicked
 		listviewOfProjects.setOnMouseClicked(e -> {
-			for (Project project : Library.projects) {
+			for (Project project : Main.library.getProjects()) {
 				String selectedItem = listviewOfProjects.getSelectionModel().getSelectedItem();
 				if (project.getName().equals(selectedItem)) {
 					selectedProject = project;
@@ -63,7 +64,7 @@ public class startpageController implements Initializable {
 		});
 		
 		//remove the create project button for developers that arent hired as project leaders
-		for (User user : Library.developers) {
+		for (User user : Main.library.getDevelopers()) {
 				if(user.isLoggedIn()) {
 						if(!(user.isProjectLeader())) {
 							createProjectButton.setDisable(true);
@@ -93,7 +94,7 @@ public class startpageController implements Initializable {
 
 	@FXML
 	void logout(ActionEvent event) {
-		for(User user : Library.developers) {
+		for(User user : Main.library.getDevelopers()) {
 				user.setLoggedIn(false);
 				viewSwitcher.switchTo(View.LOGIN);
 

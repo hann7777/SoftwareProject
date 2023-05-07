@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import application.Main;
 import application.viewSwitcher;
 import application.viewSwitcher.View;
 import javafx.beans.property.BooleanProperty;
@@ -32,7 +33,7 @@ public class createProjectViewController implements Initializable {
 
 	@FXML
 	private TextField projectDescription;
-
+ 
 	@FXML
 	private TextField projectName;
 
@@ -60,7 +61,7 @@ public class createProjectViewController implements Initializable {
 		// adding all developer to the listview once the first time the createProjectView is displayed
 		if (!isElementsAdded) {
 			if (listviewOfDevelopers.getItems().isEmpty()) {
-				for (User user : Library.developers) {
+				for (User user : Main.library.getDevelopers()) {
 					if (!(user.isLoggedIn() && user.isProjectLeader())) {
 						listviewOfDevelopers.getItems().add(user.getInitials());
 					}
@@ -78,7 +79,7 @@ public class createProjectViewController implements Initializable {
 						observable.addListener((obs, wasSelected, isNowSelected) -> {
 							if (isNowSelected) {
 								// add the user to the project
-								for (User user : Library.developers) {
+								for (User user : Main.library.getDevelopers()) {
 									if (user.getInitials().equals(item)) {
 										userToBeAdded.add(user);
 										break;
@@ -86,7 +87,7 @@ public class createProjectViewController implements Initializable {
 								}
 							} else {
 								// remove the User from the project
-								for (User user : Library.developers) {
+								for (User user : Main.library.getDevelopers()) {
 									if (user.getInitials().equals(item)) {
 										userToBeAdded.remove(user);
 										break;

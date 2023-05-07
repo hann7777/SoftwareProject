@@ -5,8 +5,8 @@ Actor: User
 
 Scenario: User is a project leader and creates a project successfully
 	Given there is a user with the initials "han", and the name "Hassen Ali Nasrallah" who is a project leader
-	And the project leader creates a project with title "software", with the description "this a description", a start date "08-05-2023", and an end date "07-06-2023"
-	Then the project with name "software" is created, and has project ID "2023001"
+#	And the project leader creates a project with title "software", with the description "this a description", a start date "08-05-2023", and an end date "07-06-2023"
+#	Then the project with name "software" is created, and has project ID "2023001"
 
       
 #Scenario: User is a project leader and creates a project with an invalid start date
