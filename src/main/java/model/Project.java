@@ -17,15 +17,14 @@ public class Project {
 	private int counter = 000;
 	private String projectLeader;
 
-
 	public Project(String name, LocalDate startDate, LocalDate endDate, String description) {
 		super();
-		
-		for(User user : Main.library.getDevelopers()) {
-			if(user.isLoggedIn()) {
-				if(user.isProjectLeader()) {
+
+		for (User user : Main.library.getDevelopers()) {
+			if (user.isLoggedIn()) {
+				if (user.isProjectLeader()) {
 					projectLeader = user.getName();
-				} 
+				}
 			}
 		}
 		this.name = name;
@@ -43,6 +42,12 @@ public class Project {
 	public void generateID() {
 		int year = Year.now().getValue() - 2000;
 		id = year + String.format("%03d", counter);
+	}
+
+	public void deleteActivity(Activity activity) {
+
+		this.getListOfActivities().remove(activity);
+
 	}
 
 	public String getName() {
@@ -92,7 +97,7 @@ public class Project {
 	public void removeDeveloper(User user) {
 		listOfDevelopers.remove(user);
 	}
-	
+
 	public void addActivity(Activity activity) {
 		listOfActivities.add(activity);
 	}
@@ -100,6 +105,7 @@ public class Project {
 	public void removoeActivity(Activity activity) {
 		listOfActivities.remove(activity);
 	}
+
 	public String getProjectLeader() {
 		return projectLeader;
 	}
@@ -107,6 +113,7 @@ public class Project {
 	public void setProjectLeader(String projectLeader) {
 		this.projectLeader = projectLeader;
 	}
+
 	public ArrayList<Activity> getListOfActivities() {
 		return listOfActivities;
 	}

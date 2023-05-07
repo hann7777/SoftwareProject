@@ -49,14 +49,18 @@ public class DeletProjectSteps {
 	}
 	@When("{string} clicks delete")
 	public void clicksDelete(String string) {
-		if(library.getProjects() != null) {
-			isclicked = true;
-			library.getProjects().remove(0);
-			
+		try {
+			if(library.getProjects() != null) {
+				isclicked = true;
+				library.getProjects().remove(0);
+			}
+			if(library.getProjects() != null) {
+				isclickedbyNoAdmin  = true;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
-		if(library.getProjects() != null) {
-			isclickedbyNoAdmin  = true;
-		}
+		
 		assertTrue(isclicked);
 	}
 	

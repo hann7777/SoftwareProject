@@ -7,7 +7,7 @@ public class Activity {
 	private double estimatedTime;
 	private boolean isCompleted;
 	private ArrayList<User> listOfDevelopers= new ArrayList<User>();
-
+ 
 	public Activity(String name, double estimatedTime) {
 		super();
 		this.name = name;
