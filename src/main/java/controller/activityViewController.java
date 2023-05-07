@@ -81,6 +81,7 @@ public class activityViewController implements Initializable {
 		for (User user : a.getListOfDevelopers()) {
 			if (user.isLoggedIn()) {
 				user.registerTime(timeInput);
+				a.setRegisteredHours(user.getInitials(), timeInput);
 			}
 		}
 

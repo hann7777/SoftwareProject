@@ -18,6 +18,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.cell.CheckBoxListCell;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.util.Callback;
 import model.Activity;
 import model.Project;
@@ -40,6 +43,9 @@ public class projectleaderActivityViewController implements Initializable {
 	@FXML
 	private Button edit;
 
+	@FXML
+	private TextFlow hoursWorked;
+
 	private Activity a;
 
 	private Project p;
@@ -59,7 +65,22 @@ public class projectleaderActivityViewController implements Initializable {
 		// add the users to the listview
 		for (User user : p.getListOfDevelopers()) {
 			listOfDevelopers.getItems().add(user.getInitials());
+
 		}
+		// display the hours each person has worked
+		for (Map.Entry<String, Double> entry : a.getRegisteredHours().entrySet()) {
+		    String key = entry.getKey();
+		    Double value = entry.getValue();
+		    Text bulletPoint = new Text("\u2022 "); 
+		    bulletPoint.setFill(Color.BLACK);
+		    Text item = new Text(key + " Has Worked: " + value + " hours \n");
+		    item.setFill(Color.BLACK);
+		    hoursWorked.getChildren().addAll(bulletPoint, item);
+		    if(a.isCompleted()) {
+		    	activityName.setText(a.getName() + " Task is Completed");
+		    }
+		}
+		
 
 		// display the specific activity info
 		activityName.setText(a.getName());
@@ -115,7 +136,7 @@ public class projectleaderActivityViewController implements Initializable {
 	void back(ActionEvent event) {
 		viewSwitcher.switchTo(View.PROJECTVIEW);
 	}
-	
+
 	@FXML
 	void edit(ActionEvent event) {
 		viewSwitcher.switchTo(View.CREATEACTIVITYVIEW);

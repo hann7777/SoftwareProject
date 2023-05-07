@@ -55,6 +55,9 @@ public class ProjectViewController implements Initializable {
 	private Label projectLeaderLabel;
 
 	@FXML
+	private Button openActivityButton;
+
+	@FXML
 	private Label projectName;
 
 	@FXML
@@ -250,16 +253,37 @@ public class ProjectViewController implements Initializable {
 
 	@FXML
 	void openActivity(ActionEvent event) {
+
 		if (selectedActivity != null) {
 			// If the user is a project leader on a project, they can't register hours. They
-			// can moderate the work.
-			for (User user : Main.library.getDevelopers()) {
-				if (user.isLoggedIn() && p.getProjectLeader().equals(user.getName())) {
-					viewSwitcher.switchTo(View.PROJECTLEADERACTIVITYVIEW);
-					return;
-				} else {
-					viewSwitcher.switchTo(View.ACTIVITYVIEW);
-					return;
+			// can moderate the work
+			if (!selectedActivity.isCompleted()) {
+				for (User user : Main.library.getDevelopers()) {
+					if (user.isLoggedIn() && p.getProjectLeader().equals(user.getName())) {
+						viewSwitcher.switchTo(View.PROJECTLEADERACTIVITYVIEW);
+						return;
+					} else {
+						viewSwitcher.switchTo(View.ACTIVITYVIEW);
+						return;
+					}
+				}
+			} else {
+				// check wether an activity is completed
+				for (Activity activity : p.getListOfActivities()) {
+					if (selectedActivity == activity) {
+						if (activity.isCompleted()) {
+							for (User user : activity.getListOfDevelopers()) {
+								if (user.isLoggedIn() && !(p.getProjectLeader().equals(user.getName()))) {
+									openActivityButton.setDisable(true);
+									openActivityButton.setText("Activity is Completed");
+
+								} else {
+									openActivityButton.setDisable(false);
+								}
+							}
+						}
+					}
+
 				}
 			}
 		}
@@ -284,7 +308,7 @@ public class ProjectViewController implements Initializable {
 								for (User user : Main.library.getDevelopers()) {
 									if (user.isLoggedIn()) {
 										if (project.getProjectLeader().equals(user.getName())) {
-											p.getListOfActivities().remove(activity);
+											p.deleteActivity(activity);
 											listOfActivitiesOnProject.getItems().remove(activity.getName());
 										} else {
 											return;

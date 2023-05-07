@@ -19,7 +19,7 @@ public class User {
 		this.name = name;
 		Main.library.getDevelopers().add(this);
 	} 
-
+ 
 
 	public void createProject() {
 		

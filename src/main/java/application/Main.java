@@ -25,7 +25,7 @@ public class Main extends Application {
 		stage.setScene(scene);
 		stage.setResizable(false); 
         stage.show();
-        
+ 
    
         User abas = new User(true, "abas", "Abas Ali");
     	User saeed = new User(true, "saee", "Saaed Amin");
