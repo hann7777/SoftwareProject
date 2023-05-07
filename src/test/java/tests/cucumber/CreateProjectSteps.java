@@ -39,7 +39,7 @@ public class CreateProjectSteps {
 	public void theProjectLeaderCreatesAProjectWithTitleWithTheDescriptionAStartDateAndAnEndDate(String string,
 			String string2, String string3, String string4) {
 
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 		LocalDate sDate = LocalDate.parse(string3, formatter);
 		LocalDate eDate = LocalDate.parse(string4, formatter);
 		project = new Project(string, sDate, eDate, string2);
