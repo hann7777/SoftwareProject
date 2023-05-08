@@ -41,8 +41,8 @@ public class Project {
 	}
 
 	public void generateID() {
-		int year = Year.now().getValue() - 2000;
-		id = year + String.format("%03d", counter);
+		int year = Year.now().getValue() - 2000; //1
+		id = year + String.format("%03d", counter); //2
 	}
 
 	public void deleteActivity(Activity activity) {

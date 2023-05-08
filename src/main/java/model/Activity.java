@@ -74,7 +74,7 @@ public class Activity {
 	}
 
 	public void addDeveloper(User user) {
-		listOfDevelopers.add(user);
+		this.listOfDevelopers.add(user); //1
 	}
 
 	public void removeDeveloper(User user) {

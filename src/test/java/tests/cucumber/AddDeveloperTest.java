@@ -25,7 +25,7 @@ public class AddDeveloperTest {
 		assertEquals(1, activity.getListOfDevelopers().size());
 		assertTrue(activity.getListOfDevelopers().contains(user1));
 
-		// Add another developer and check that the list contains two elements
+		// Add another developer to the project, and assert that the size is 2
 		User user2 = new User(true, "aamo", "Abas Ali Mohamed Osman");
 		activity.addDeveloper(user2);
 		assertEquals(2, activity.getListOfDevelopers().size());

@@ -15,12 +15,12 @@ public class GenerateIDTest {
     public void testGenerateID() {
         LocalDate startDate = LocalDate.of(2023, 5, 1);
         LocalDate endDate = LocalDate.of(2023, 5, 31);
-        Project project = new Project("Project A", startDate, endDate, "Description"); // create an instance of the                                                                                    // class being tested
-        Project.setCounter(42); // set the value of counter to a known value
-        project.generateID(); // call the method being tested
-        int expectedYear = Year.now().getValue() - 2000; // calculate the expected value for year
-        String expectedID = expectedYear + String.format("%03d", 42); // calculate the expected ID
-        assertEquals(expectedID, project.getId()); // check that the generated ID matches the expected value
+        Project project = new Project("Project A", startDate, endDate, "Description"); 
+        Project.setCounter(7); 
+        project.generateID(); 
+        int expectedYear = Year.now().getValue() - 2000;
+        String expectedID = expectedYear + String.format("%03d", 7); 
+        assertEquals(expectedID, project.getId()); 
     }
 
 }
