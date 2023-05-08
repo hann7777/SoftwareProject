@@ -1,3 +1,4 @@
+//Abas
 package model;
 
 import java.util.ArrayList;
@@ -53,16 +54,6 @@ public class Activity {
 	}
 
 	public boolean isCompleted() {
-		registeredHours.forEach((key, value) -> {
-			double sum = 0;
-			sum += value;
-			if (sum == estimatedTime) {
-				setCompleted(true);
-			} else {
-				setCompleted(false);
-			}
-
-		});
 		return isCompleted;
 	}
 
