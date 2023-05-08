@@ -342,21 +342,10 @@ public class ProjectViewController implements Initializable {
 		viewSwitcher.switchTo(View.CREATEPROJECTVIEW);
 	}
 
-	// Helper method to get User object by initials
 	private User getUserByInitials(String initials) {
 		for (User user : Main.library.getDevelopers()) {
 			if (user.getInitials().equals(initials)) {
 				return user;
-			}
-		}
-		return null;
-	}
-
-	// Helper method to get Activity object by name
-	private Activity getActivityByName(String name) {
-		for (Activity activity : p.getListOfActivities()) {
-			if (activity.getName().equals(name)) {
-				return activity;
 			}
 		}
 		return null;
