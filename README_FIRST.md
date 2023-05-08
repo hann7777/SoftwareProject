@@ -1,5 +1,7 @@
 Project_04_
-
+#########################################################################
+GITHUB LINK: https://github.com/hann7777/SoftwareProject
+##########################################################################
 1. Our program runs using javafx
 2. Our users are added to the project through the Main, that is located in src/main/java/application.Main
 3. They are added by typing between line 30 and 35 using this following code:
