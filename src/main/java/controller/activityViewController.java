@@ -43,7 +43,7 @@ public class activityViewController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		p = startpageController.selectedProject;
 		a = ProjectViewController.selectedActivity;
-
+ 
 		
 		
 
