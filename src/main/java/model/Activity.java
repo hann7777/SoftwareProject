@@ -42,19 +42,13 @@ public class Activity {
 
 	public double getRemainingTime() {
 		return remainingTime;
-	}
+	} 
 
 	public void updateRemainingTime(double remainingTime) {
 		assert remainingTime != 0;
-		assert remainingTime > this.estimatedTime;
+		assert remainingTime > this.estimatedTime == false;
 
-		if (remainingTime > estimatedTime) { // 1
-			return; // 2
-		} else {// 3
-			this.remainingTime -= remainingTime;// 4
-		}
-
-		assert this.remainingTime == this.remainingTime - remainingTime;
+		this.remainingTime -= remainingTime;// 1
 
 	}
 
@@ -77,9 +71,9 @@ public class Activity {
 	public void addDeveloper(User user) {
 		assert user != null;
 		assert this.listOfDevelopers.contains(user) == false;
-		
+
 		this.listOfDevelopers.add(user); // 1
-		
+
 		assert this.listOfDevelopers.contains(user);
 
 	}

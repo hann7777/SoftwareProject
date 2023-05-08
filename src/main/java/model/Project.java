@@ -39,7 +39,7 @@ public class Project {
 		generateID();
 		Main.library.getProjects().add(this);
 
-	}
+	} 
 
 	public void generateID() {
 		assert Year.now().getValue() != 0;

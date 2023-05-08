@@ -14,17 +14,10 @@ public class UpdateRemainingTimeTest {
 
 	@Test
 	public void testUpdateRemainingTime() {
-		double input = 30.0;
-		if (input > estimatedTime) {
-			activity.updateRemainingTime(input);
-			assertFalse(activity.getRemainingTime() == activity.getEstimatedTime() - input);
-			input = 10;
-		}
-		
-		if (input <= estimatedTime) {
-			activity.updateRemainingTime(input);
-			assertEquals(estimatedTime - input, activity.getRemainingTime());
-		}
+		double input = 10.0;
+
+		activity.updateRemainingTime(input);
+		assertEquals(estimatedTime - input, activity.getRemainingTime());
 
 	}
 
