@@ -46,7 +46,7 @@ public class Project {
 	}
 
 	public void deleteActivity(Activity activity) {
-		this.getListOfActivities().remove(activity);
+		this.getListOfActivities().remove(activity); //1
 
 	}
 

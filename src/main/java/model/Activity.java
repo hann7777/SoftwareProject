@@ -44,10 +44,10 @@ public class Activity {
 	}
 
 	public void updateRemainingTime(double remainingTime) {
-		if(remainingTime > estimatedTime ) {
-			return;
-		}else {
-			this.remainingTime -= remainingTime;
+		if(remainingTime > estimatedTime ) { //1
+			return; //2
+		}else {//3
+			this.remainingTime -= remainingTime;//4
 		}
 		
 	}
