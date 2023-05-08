@@ -32,7 +32,7 @@ public class Project {
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.description = description;
-		
+
 		listOfDevelopers = new ArrayList<>();
 		listOfActivities = new ArrayList<>();
 		counter++;
@@ -42,12 +42,23 @@ public class Project {
 	}
 
 	public void generateID() {
-		int year = Year.now().getValue() - 2000; //1
-		id = year + String.format("%03d", counter); //2
+		assert Year.now().getValue() != 0;
+		assert counter != 0;
+		int year = Year.now().getValue() - 2000; // 1
+		id = year + String.format("%03d", counter); // 2
+
+		assert id != null;
+		assert id.compareTo(year + String.format("%03d", 0)) > 0;
+
 	}
 
 	public void deleteActivity(Activity activity) {
-		this.getListOfActivities().remove(activity); //1
+		assert activity != null;
+		assert this.listOfActivities.contains(activity);
+
+		this.getListOfActivities().remove(activity); // 1
+
+		assert this.getListOfActivities().contains(activity) == false;
 
 	}
 
@@ -129,7 +140,7 @@ public class Project {
 
 	public static void setCounter(int i) {
 		counter = i;
-		
+
 	}
 
 }

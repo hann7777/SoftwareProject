@@ -45,12 +45,17 @@ public class Activity {
 	}
 
 	public void updateRemainingTime(double remainingTime) {
-		if(remainingTime > estimatedTime ) { //1
-			return; //2
-		}else {//3
-			this.remainingTime -= remainingTime;//4
+		assert remainingTime != 0;
+		assert remainingTime > this.estimatedTime;
+
+		if (remainingTime > estimatedTime) { // 1
+			return; // 2
+		} else {// 3
+			this.remainingTime -= remainingTime;// 4
 		}
-		
+
+		assert this.remainingTime == this.remainingTime - remainingTime;
+
 	}
 
 	public boolean isCompleted() {
@@ -70,7 +75,13 @@ public class Activity {
 	}
 
 	public void addDeveloper(User user) {
-		this.listOfDevelopers.add(user); //1
+		assert user != null;
+		assert this.listOfDevelopers.contains(user) == false;
+		
+		this.listOfDevelopers.add(user); // 1
+		
+		assert this.listOfDevelopers.contains(user);
+
 	}
 
 	public void removeDeveloper(User user) {
