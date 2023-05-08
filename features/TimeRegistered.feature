@@ -1,4 +1,4 @@
-//Jon
+#Jon
 Feature: Time Registered:
 
 Description: A developer on a project activity can type in how much time he has spent on that activity
