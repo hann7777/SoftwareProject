@@ -1,3 +1,4 @@
+//Hassen
 Feature: create project:
 
 Description: Creating project with name,description, start and end date.
@@ -22,10 +23,10 @@ Scenario: User is a project leader and creates a project with an end date before
 
 Scenario: User is a project leader and creates a project without a name
 	Given there is a user with the initials "han", and the name "Hassen Ali Nasrallah" who is a project leader
-	And the project leader creates a project with no title "", with the description "this a description", a start date "<LocalDate>", and an end date "<LocalDate>".
+	And the project leader creates a project with no title "", with the description "this a description", a start date "08-05-2023", and an end date "08-06-2023".
 	Then the project with name "" is not created.
 
 Scenario: User is a project leader and creates a project without a description
 	Given there is a user with the initials "han", and the name "Hassen Ali Nasrallah" who is a project leader
-	And the project leader creates a project with title "softwareNotExist", with no description "", a start date "<LocalDate>", and an end date "<LocalDate>".
+	And the project leader creates a project with title "softwareNotExist", with no description "", a start date "08-05-2023", and an end date "08-06-2023".
 	Then the project with name "softwareNotExist" is not created.
