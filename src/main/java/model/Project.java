@@ -131,4 +131,9 @@ public class Project {
 		this.listOfDevelopers = listOfDevelopers;
 	}
 
+	public static void setCounter(int i) {
+		counter = i;
+		
+	}
+
 }
