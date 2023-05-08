@@ -44,7 +44,12 @@ public class Activity {
 	}
 
 	public void updateRemainingTime(double remainingTime) {
-		this.remainingTime -= remainingTime;
+		if(remainingTime > estimatedTime ) {
+			return;
+		}else {
+			this.remainingTime -= remainingTime;
+		}
+		
 	}
 
 	public boolean isCompleted() {
