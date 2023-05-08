@@ -79,7 +79,7 @@ public class TimeRegisteredSteps {
 
 	@Then("he registers {double} hours to the activity")
 	public void heRegistersHoursToTheActivity(Double double1) {
-		activity.setRemainingTime(double1);
+		activity.updateRemainingTime(double1);
 		assertEquals(0.5, activity.getRemainingTime());
 	}
 

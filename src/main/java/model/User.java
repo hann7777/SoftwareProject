@@ -21,12 +21,7 @@ public class User {
 	} 
  
 
-	public void createProject() {
-		
-	}
-	public void markAnActivityAsCompleted() {
-		
-	}
+
 	
 	public void registerTime(double time) {
 		timeRegistred += time;

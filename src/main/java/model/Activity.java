@@ -43,7 +43,7 @@ public class Activity {
 		return remainingTime;
 	}
 
-	public void setRemainingTime(double remainingTime) {
+	public void updateRemainingTime(double remainingTime) {
 		this.remainingTime -= remainingTime;
 	}
 

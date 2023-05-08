@@ -70,12 +70,12 @@ public class activityViewController implements Initializable {
 			}
 		} catch (Exception e) {
 			return;
-		}
+		}  
 		if (a.getRemainingTime() <= 0) {
 			return;
 		}
 		if (timeInput <= a.getEstimatedTime()) {
-			a.setRemainingTime(timeInput);
+			a.updateRemainingTime(timeInput);
 		}
 
 		// add the registered time to the users memory

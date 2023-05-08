@@ -143,7 +143,7 @@ public class createActivityViewController implements Initializable {
 				activity.setEstimatedTime(estimatedTimeConverted);
 			}else {
 				
-				activity.setRemainingTime((estimatedTimeConverted-activity.getEstimatedTime())*-1);
+				activity.updateRemainingTime((estimatedTimeConverted-activity.getEstimatedTime())*-1);
 				activity.setEstimatedTime(estimatedTimeConverted);
 			}
 
